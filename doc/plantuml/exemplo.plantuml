@@ -1,0 +1,40 @@
+@startuml calculator
+skinparam classAttributeIconSize 0
+
+class Calculator{
+ -battery : int
+ -batteryMax : int
+ -display : float
+ +Calculator(batteryMax : int)
+ +chargeBattery(value : int)
+ +useBattery() : boolean
+ +sum(a : float, b : float)
+ +sum(a : float)
+ +mul(a : float, b : float)
+ +mul(a : float)
+ +division(num : float, den : float)
+ +division(den : float)
+ +pow(base : float, exp : float)
+ +pow(exp : float)
+ +sen(a : float)
+ +sen()
+ +cos(a : float)
+ +cos()
+ +tg(a : float)
+ +tg()
+ +sqrt(a : float)
+ +sqrt()
+ +log(a : float)
+ +log()
+ +ln(a : float)
+ +ln()
+ +setEuler()
+ +setPi()
+ +getDisplay() : float
+ +getBattery() : int
+ +getBatteryMax() : int
+ +batteryManager() : String
+ +toString() : String
+}
+
+@enduml

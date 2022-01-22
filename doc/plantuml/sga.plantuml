@@ -1,0 +1,139 @@
+/' 
+Diagrama UML do sistema de gerenciamento de academias (SGA)
+Manual: https://plantuml.com/class-diagram#a05971470d7fd711
+'/
+@startuml sga
+skinparam classAttributeIconSize 0
+
+package br.com.sga.empresa <<Folder>> {
+     class Empresa {
+          -nome : String
+          -cnpj : int
+          -nomeDono : String
+          -cpfDono : int
+          -nomeResponsavel : String
+          -cpfResponsavel : int
+          -cidade : String
+          -estado : Estado
+     }
+
+     enum Estado {
+          AC
+          AL
+          AP
+          AM
+          BA
+          CE
+          DF
+          ES
+          GO
+          MA
+          MT
+          MS
+          MG
+          PA
+          PB
+          PR
+          PE
+          PI
+          RJ
+          RN
+          RS
+          RO
+          RR
+          SC
+          SP
+          SE
+          TO
+          +toString() : String
+     }
+}
+
+package br.com.sga.pessoal <<Folder>> {
+
+     abstract class Pessoa {
+          -nome : String
+          -telefone : String
+          -sexo : Sexo
+          -dataNascimento : Date
+          -email : String
+          -CPF : int
+          -logradouro : String
+          -bairro : String
+          -CEP : int
+     }
+
+     class Funcionario extends Pessoa {
+
+     }
+
+     class Aluno extends Pessoa {
+          -dataMensalidade : Date
+     }
+
+     enum Cargo {
+          ADMINISTRADOR
+          GERENTE
+          INSTRUTOR
+          AVALIADOR_FISICO
+          NUTRICIONISTA
+          ATENDENTE
+          LIMPEZA
+     }
+
+     enum Sexo {
+          MASCULINO
+          FEMININO
+     }
+}
+
+package br.com.sga.financeiro <<Folder>> {
+
+     abstract class Caixa {
+
+     }
+
+     class CaixaAlunos extends Caixa {
+          -mensalidades : Map<Aluno, Boolean>
+     }
+
+     class CaixaProdutos extends Caixa  {
+          -vendas : Map<Estoque, Double>
+     }
+
+     class CaixaSalarios {
+          -pagamentos : Map<Funcionario, Boolean>
+     }
+}
+
+package br.com.sga.produtos <<Folder>> {
+     class Estoque {
+
+     }
+
+     class Produto {
+
+     }
+}
+
+package br.com.sga.banco <<Folder>> {
+     class GerenciadorBanco {
+          +salvarEstado() : void
+          +restaurarEstado() : void
+          +backup() : void
+     }
+}
+
+Pessoa *-- Sexo
+
+Cargo *-- Funcionario
+
+CaixaAlunos *-- Aluno
+
+CaixaProdutos *-- Estoque
+
+Estoque *-- Produto
+
+Empresa *-- Estado
+
+@enduml
