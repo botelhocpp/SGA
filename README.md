@@ -27,7 +27,7 @@ O projeto será lançado como um .JAR executável, então só irá precisar clic
 
 ### Pastas
 
-Ainda não temos pastas 😢 ...
+- doc: Onde fica a documentação do projeto, bem como o planejamento.
 
 ### Recursos
 
