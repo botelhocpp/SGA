@@ -1,5 +1,5 @@
 /'
-Diagrama UML do sistema de gerenciamento de academias (SGA)
+Diagrama UML do Sistema de Gerenciamento de Academias (SGA)
 Manual: https://plantuml.com/class-diagram#a05971470d7fd711
 '/
 @startuml sga
@@ -8,17 +8,35 @@ skinparam classAttributeIconSize 0
 package br.com.sga.empresa <<Folder>> {
      class Empresa {
           -nome : String
-          -cnpj : int
+          -cnpj : String
           -email : String
-          -nomeDono : String
-          -cpfDono : int
-          -nomeResponsavel : String
-          -cpfResponsavel : int
+          -telefone : String
+          -dono : Funcionario
+          -responsavel : Funcionario
+          -usuarioAdministrador : Usuario
+          -localizacao : Endereco
+          +Empresa(nomeEmpresa : String, cnpjEmpresa : String)
+          +toString() : String
+     }
+
+     class Usuario {
+          -login : String
+          -senha : String
+          +Usuario(login : String, senha : String)
+          +getLogin() : String
+          +getSenha() : String
+          +toString() : String
+     }
+}
+
+package br.com.sga.identidade <<Folder>> {
+
+     class Endereco {
+          -logradouro : String
+          -bairro : String
+          -cep : String
           -cidade : String
           -estado : Estado
-          -valorMensalidade : double
-          +Empresa(...)
-          +toString() : String
      }
 
      enum Estado {
@@ -51,8 +69,14 @@ package br.com.sga.empresa <<Folder>> {
           TO
           +toString() : String
      }
-}
 
+     class ValidacaoDadosPessoais {
+          validarRegistroNacional(registro : String) : boolean
+          validarEmail(email : String) : boolean
+          validarTelefone(telefone : String) : boolean
+     }
+
+}
 package br.com.sga.pessoal <<Folder>> {
 
      abstract class Pessoa <<Comparable>> {
@@ -61,26 +85,13 @@ package br.com.sga.pessoal <<Folder>> {
           -sexo : Sexo
           -dataNascimento : LocalDateTime
           -email : String
-          -cpf : int
-          -logradouro : String
-          -bairro : String
-          -cep : int
+          -cpf : String
+          -endereco : Endereco
           +toString() : String
      }
 
      class Funcionario extends Pessoa {
-          {static} -idIncremento : int
-          -id : int
-          -cargo : Cargo
-          -salario : float
-          -historicoPagamento : Map<LocalDateTime, Double>
-          -dataAdmissao : LocalDateTime
-          +Funcionario(...)
-          +pagarSalario() : void
-          +aumentoSalario() : void
-          +hashCode() : int
-          +equals(referential : Object) : boolean
-          +toString() : String
+
      }
 
      class Aluno extends Pessoa {
@@ -93,17 +104,6 @@ package br.com.sga.pessoal <<Folder>> {
           +verificarSituacao() : boolean
           +hashCode() : int
           +equals(referential : Object) : boolean
-          +toString() : String
-     }
-
-     enum Cargo {
-          ADMINISTRADOR
-          GERENTE
-          INSTRUTOR
-          AVALIADOR_FISICO
-          NUTRICIONISTA
-          ATENDENTE
-          LIMPEZA
           +toString() : String
      }
 
@@ -142,37 +142,9 @@ package br.com.sga.financeiro <<Folder>> {
           +getAlunos() : Set<Aluno>
           +toString() : String
      }
-
-     class GerenciadorFuncionarios extends GerenciadorCaixa {
-          -pagamentos : Map<Funcionario, Boolean>
-          +GerenciadorFuncionarios()
-          +verificarPagamento(id : int) : boolean
-          +adicionarFuncionario(funcionario : Funcionario) : void
-          +adicionarFuncionarios(funcionarios : Collection<Funcionario>) : void
-          +removerFuncionario() : Funcionario
-          +getFuncionario(id : int) : Funcionario
-          +getFuncionarios() : Set<Funcionario>
-          +toString() : String
-     }
-}
-
-package br.com.sga.banco <<Folder>> {
-     class GerenciadorBanco {
-          -arquivoBanco : File
-          +GerenciadorBanco(arquivoBanco : File)
-          +salvarDados() : void
-          +getBanco() : File
-          +restaurarDados() : void
-          +backupDados() : void
-          +toString() : String
-     }
 }
 
 Pessoa *-- Sexo
-
-Funcionario *-- Cargo
-
-GerenciadorFuncionarios *-- Funcionario
 
 GerenciadorAlunos *-- Aluno
 

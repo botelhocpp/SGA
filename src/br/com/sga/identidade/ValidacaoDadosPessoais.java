@@ -1,6 +1,6 @@
 package br.com.sga.identidade;
 
-public abstract class Pessoas {
+public abstract class ValidacaoDadosPessoais {
 
      /**
       * Valida um número de registro nacional, tais como RG, CPF e CNPJ.
@@ -19,6 +19,16 @@ public abstract class Pessoas {
       * @return
       */
      public static boolean validarEmail(String email) {
+          return true;
+     }
+
+     /**
+      * Valida um número de telefone.
+      *
+      * @param telefone
+      * @return
+      */
+     public static boolean validarTelefone(String telefone) {
           return true;
      }
 }

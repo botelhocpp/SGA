@@ -6,8 +6,10 @@ public class Empresa {
      private String nomeEmpresa;
      private String cnpjEmpresa;
      private String emailEmpresa;
+
      private String nomeDono;
      private String cpfDono;
+     
      private String nomeResponsavel;
      private String cpfResponsavel;
      private Endereco enderecoEmpresa;
