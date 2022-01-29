@@ -1,20 +1,19 @@
 package br.com.sga.pessoal;
 
-import java.util.Date;
-
+import br.com.sga.datehelper.DateHelper;
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.ValidacaoDadosPessoais;
 
 public abstract class Pessoa implements Comparable<Pessoa> {
-     private String nome;
-     private String telefone;
-     private Sexo sexo;
-     private String cpf;
-     private Date dataNascimento;
-     private String email;
-     private Endereco endereco;
+     protected String nome;
+     protected String telefone;
+     protected Sexo sexo;
+     protected String cpf;
+     protected DateHelper dataNascimento;
+     protected String email;
+     protected Endereco endereco;
 
-     public Pessoa(String nome, String telefone, Sexo sexo, String cpf) {
+     public Pessoa(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco) {
           this.setNome(nome);
           this.setTelefone(telefone);
           this.setSexo(sexo);
@@ -22,6 +21,18 @@ public abstract class Pessoa implements Comparable<Pessoa> {
           this.setDataNascimento(dataNascimento);
           this.setEmail(email);
           this.setEndereco(endereco);
+     }
+
+     public String toString() {
+          return String.format("Nome: %s%n" + 
+          "Telefone: %s%n" + 
+          "Sexo: %s%n" + 
+          "CPF: %s%n" + 
+          "Data de Nascimento: %s%n" +
+          "Endereço de E-mail: %s%n" +  
+          "Endereço: %s%n", this.nome,
+          this.telefone, this.sexo, this.cpf,
+          this.dataNascimento, this.email, this.endereco);
      }
 
      // ------------------------------------------------------------------------
@@ -44,8 +55,8 @@ public abstract class Pessoa implements Comparable<Pessoa> {
           return this.cpf;
      }
 
-     public Date getDataNascimento() {
-          return this.dataNascimento;
+     public String getDataNascimento() {
+          return this.dataNascimento.toString();
      }
 
      public String getEmail() {
@@ -60,49 +71,49 @@ public abstract class Pessoa implements Comparable<Pessoa> {
      // Setters
      // ------------------------------------------------------------------------
 
-     public void setNome(String nome) throws IllegalArgumentException {
+     private void setNome(String nome) throws IllegalArgumentException {
           if(nome == null || nome.isEmpty()) {
                throw new IllegalArgumentException("Nome informado é inválido!");
           }
           this.nome = nome;
      }
 
-     public void setTelefone(String telefone) throws IllegalArgumentException {
+     private void setTelefone(String telefone) throws IllegalArgumentException {
           if(!ValidacaoDadosPessoais.validarTelefone(telefone)) {
                throw new IllegalArgumentException("Número de telefone inválido!");
           }
           this.telefone = telefone;
      }
 
-     public void setSexo(Sexo sexo) throws IllegalArgumentException {
+     private void setSexo(Sexo sexo) throws IllegalArgumentException {
           if(sexo == null) {
                throw new IllegalArgumentException("Informe um sexo!");
           }
           this.sexo = sexo;
      }
 
-     public void setCpf(String cpf) throws IllegalArgumentException {
+     private void setCpf(String cpf) throws IllegalArgumentException {
           if(!ValidacaoDadosPessoais.validarRegistroNacional(cpf)) {
                throw new IllegalArgumentException("Número de CPF inválido");
           }
           this.cpf = cpf;
      }
 
-     public void setDataNascimento(Date dataNascimento) throws IllegalArgumentException {
+     private void setDataNascimento(String dataNascimento) throws IllegalArgumentException {
           if(dataNascimento == null) {
                throw new IllegalArgumentException("Informe uma data de nascimento!");
           }
-          this.dataNascimento = dataNascimento;
+          this.dataNascimento = new DateHelper(dataNascimento);
      }
 
-     public void setEmail(String email) throws IllegalArgumentException {
+     private void setEmail(String email) throws IllegalArgumentException {
           if(!ValidacaoDadosPessoais.validarEmail(email)) {
                throw new IllegalArgumentException("Endereço de e-mail inválido");
           }
           this.email = email;
      }
 
-     public void setEndereco(Endereco endereco) throws IllegalArgumentException {
+     private void setEndereco(Endereco endereco) throws IllegalArgumentException {
           if(endereco == null) {
                throw new IllegalArgumentException("Informe um endereço!");
           }

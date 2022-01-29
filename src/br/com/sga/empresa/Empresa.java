@@ -11,70 +11,85 @@ public class Empresa {
      private Endereco endereco;
      private Funcionario gerente;
 
-     public Empresa(String nome, String cnpj) {
-          this.setnome(nome);
-          this.setcnpj(cnpj);
+     public Empresa(String nome, String cnpj, String email, Endereco endereco) {
+          this.setNome(nome);
+          this.setCnpj(cnpj);
+          this.setEmail(email);
+          this.setEndereco(endereco);
+     }
+
+     @Override
+     public String toString() {
+          return String.format("Informações da Empresa:%n" + 
+          "Nome: %s%n" + 
+          "CNPJ: %s%n" + 
+          "E-mail: %s%n" + 
+          "Endereço: %s%n" + 
+          "Gerente: %s%n", 
+          this.nome, this.cnpj, this.email,
+          this.endereco, this.gerente);
      }
 
      // ------------------------------------------------------------------------
      // Setters
      // ------------------------------------------------------------------------
 
-     private void setnome(String nome) throws IllegalArgumentException {
+     private void setNome(String nome) throws IllegalArgumentException {
           if(nome == null || nome.isEmpty()) {
                throw new IllegalArgumentException("Nome da empresa inválido!");
           }
           this.nome = nome;
      }
 
-     private void setcnpj(String cnpj) {
+     private void setCnpj(String cnpj) throws PessoaInvalidaException {
           if(!ValidacaoDadosPessoais.validarRegistroNacional(cnpj)) {
                throw new PessoaInvalidaException("O número do CNPJ informado é inválido!");
           }
           this.cnpj = cnpj;
      }
 
+     public void setEmail(String email) throws IllegalArgumentException {
+          if(email == null || email.isEmpty()) {
+               throw new IllegalArgumentException("E-mail da empresa inválido!");
+          }
+          this.email = email;
+     }
+
+     public void setEndereco(Endereco endereco) throws IllegalArgumentException {
+          if(endereco == null) {
+               throw new IllegalArgumentException("Informe um endereço!");
+          }
+          this.endereco = endereco;
+     }  
+
+     public void setGerente(Funcionario gerente) throws IllegalArgumentException {
+          if(gerente == null) {
+               throw new IllegalArgumentException("Informe um gerente!");
+          }
+          this.gerente = gerente;
+     }  
+
      // ------------------------------------------------------------------------
      // Getters
      // ------------------------------------------------------------------------
 
-     public String getnome() {
-          return nome;
+     public String getNome() {
+          return this.nome;
      }
 
-     public String getcnpj() {
-          return cnpj;
+     public String getCnpj() {
+          return this.cnpj;
      }
 
-     public String getemail() {
-          return email;
+     public String getEmail() {
+          return this.email;
      }
 
-     public String getNomeDono() {
-          return nomeDono;
+     public Endereco getEndereco() {
+          return this.endereco;
      }
 
-     public String getCpfDono() {
-          return cpfDono;
-     }
-
-     public String getNomeResponsavel() {
-          return nomeResponsavel;
-     }
-
-     public String getCpfResponsavel() {
-          return cpfResponsavel;
-     }
-
-     public String getCidade() {
-          return cidade;
-     }
-
-     public Estado getEstado() {
-          return estado;
-     }
-
-     public double getValorMensalidade() {
-          return valorMensalidade;
+     public Funcionario getGerente() {
+          return this.gerente;
      }
 }

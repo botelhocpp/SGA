@@ -2,7 +2,8 @@ package br.com.sga.pessoal;
 
 public enum Sexo {
      MASCULINO("Masculino"),
-     FEMININO("Feminino");
+     FEMININO("Feminino"),
+     OUTRO("Outro");
 
      private String identificador;
 
