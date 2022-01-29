@@ -1,4 +1,4 @@
-package br.com.sga.datehelper;
+package br.com.sga.dateHelper;
 
 import java.util.Date;
 import java.util.GregorianCalendar;

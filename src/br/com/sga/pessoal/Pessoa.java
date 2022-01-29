@@ -1,6 +1,6 @@
 package br.com.sga.pessoal;
 
-import br.com.sga.datehelper.DateHelper;
+import br.com.sga.dateHelper.DateHelper;
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.ValidacaoDadosPessoais;
 

@@ -33,7 +33,8 @@ public abstract class ValidacaoDadosPessoais {
                }
 
                valor = (valor % 11);
-               if (valor == 1) valor = 0;
+               if (valor == 1)
+                    valor = 0;
 
                valor = 11 - valor;
 
@@ -45,9 +46,9 @@ public abstract class ValidacaoDadosPessoais {
                     valor += base * Integer.parseInt(registro.charAt(index) + "");
                }
 
-
                valor = (valor % 11);
-               if (valor == 1) valor = 0;
+               if (valor == 1)
+                    valor = 0;
 
                valor = 11 - valor;
 
@@ -72,7 +73,8 @@ public abstract class ValidacaoDadosPessoais {
                }
 
                valor = valor % 11;
-               if (valor == 1) valor = 0;
+               if (valor == 1)
+                    valor = 0;
 
                valor = 11 - valor;
 
@@ -89,7 +91,8 @@ public abstract class ValidacaoDadosPessoais {
                }
 
                valor = valor % 11;
-               if (valor == 1) valor = 0;
+               if (valor == 1)
+                    valor = 0;
 
                valor = 11 - valor;
 
@@ -108,7 +111,7 @@ public abstract class ValidacaoDadosPessoais {
       * @return
       */
      public static boolean validarEmail(String email) throws IllegalArgumentException {
-          if(email == null || email.isEmpty()) {
+          if (email == null || email.isEmpty()) {
                throw new IllegalArgumentException("Informe um endereço de e-mail!");
           }
           return email.matches(REGEX_EMAIL);
