@@ -1,4 +1,4 @@
-package br.com.sga.identidade;
+package br.com.sga.identidade.excecoes;
 
 public class PessoaInvalidaException extends RuntimeException {
      public PessoaInvalidaException() {

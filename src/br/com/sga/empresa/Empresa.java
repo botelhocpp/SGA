@@ -1,59 +1,53 @@
 package br.com.sga.empresa;
 
+import br.com.sga.pessoal.*;
 import br.com.sga.identidade.*;
+import br.com.sga.identidade.excecoes.PessoaInvalidaException;
 
 public class Empresa {
-     private String nomeEmpresa;
-     private String cnpjEmpresa;
-     private String emailEmpresa;
+     private String nome;
+     private String cnpj;
+     private String email;
+     private Endereco endereco;
+     private Funcionario gerente;
 
-     private String nomeDono;
-     private String cpfDono;
-     
-     private String nomeResponsavel;
-     private String cpfResponsavel;
-     private Endereco enderecoEmpresa;
-     private double valorMensalidade;
-
-     public Empresa(String nomeEmpresa, String cnpjEmpresa) {
-          this.setNomeEmpresa(nomeEmpresa);
-          this.setCNPJEmpresa(cnpjEmpresa);
+     public Empresa(String nome, String cnpj) {
+          this.setnome(nome);
+          this.setcnpj(cnpj);
      }
-
-     
 
      // ------------------------------------------------------------------------
      // Setters
      // ------------------------------------------------------------------------
 
-     private void setNomeEmpresa(String nomeEmpresa) {
-          if(nomeEmpresa == null || nomeEmpresa.isEmpty()) {
+     private void setnome(String nome) throws IllegalArgumentException {
+          if(nome == null || nome.isEmpty()) {
                throw new IllegalArgumentException("Nome da empresa inválido!");
           }
-          this.nomeEmpresa = nomeEmpresa;
+          this.nome = nome;
      }
 
-     private void setCNPJEmpresa(String cnpjEmpresa) {
-          if(!Pessoas.validarRegistroNacional(cnpjEmpresa)) {
+     private void setcnpj(String cnpj) {
+          if(!ValidacaoDadosPessoais.validarRegistroNacional(cnpj)) {
                throw new PessoaInvalidaException("O número do CNPJ informado é inválido!");
           }
-          this.cnpjEmpresa = cnpjEmpresa;
+          this.cnpj = cnpj;
      }
 
      // ------------------------------------------------------------------------
      // Getters
      // ------------------------------------------------------------------------
 
-     public String getNomeEmpresa() {
-          return nomeEmpresa;
+     public String getnome() {
+          return nome;
      }
 
-     public String getCnpjEmpresa() {
-          return cnpjEmpresa;
+     public String getcnpj() {
+          return cnpj;
      }
 
-     public String getEmailEmpresa() {
-          return emailEmpresa;
+     public String getemail() {
+          return email;
      }
 
      public String getNomeDono() {
