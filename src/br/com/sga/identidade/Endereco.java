@@ -10,16 +10,16 @@ public class Endereco {
 
      public Endereco(String logradouro, String bairro, String cidade, Estado estado, String cep) {
           this.setLogradouro(logradouro);
+          this.setNumero(numero);
           this.setBairro(bairro);
           this.setCidade(cidade);
           this.setEstado(estado);
           this.setCep(cep);
      }
-
      
      @Override
      public String toString() {
-          return "Endereço: " + this.logradouro + ", ";
+          return "Endereço: " + this.logradouro + ", N° " + this.numero + ", " + this.bairro + ", " + this.cidade + " - " + this.estado;
      }
 
      // ------------------------------------------------------------------------
@@ -54,11 +54,18 @@ public class Endereco {
      // Setters
      // ------------------------------------------------------------------------
 
-     private void setCidade(String cidade) {
-          if(cidade == null || cidade.isEmpty()) {
-               throw new IllegalArgumentException("Nome da cidade inválido!");
+     private void setLogradouro(String logradouro) {
+          if(logradouro == null || logradouro.isEmpty()) {
+               throw new IllegalArgumentException("Nome do logradouro inválido!");
           }
-          this.cidade = cidade;
+          this.logradouro = logradouro;
+     }
+
+     public void setNumero(String numero) {
+          if(numero == null || numero.isEmpty() || Integer.parseInt(numero) <= 0) {
+               throw new IllegalArgumentException("Número inválido!");
+          }
+          this.numero = numero;
      }
 
      private void setBairro(String bairro) {
@@ -68,11 +75,11 @@ public class Endereco {
           this.bairro = bairro;
      }
 
-     private void setLogradouro(String logradouro) {
-          if(logradouro == null || logradouro.isEmpty()) {
-               throw new IllegalArgumentException("Nome do logradouro inválido!");
+     private void setCidade(String cidade) {
+          if(cidade == null || cidade.isEmpty()) {
+               throw new IllegalArgumentException("Nome da cidade inválido!");
           }
-          this.logradouro = logradouro;
+          this.cidade = cidade;
      }
 
      private void setEstado(Estado estado) {
