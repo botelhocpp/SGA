@@ -2,13 +2,13 @@ package br.com.sga.identidade;
 
 public class Endereco {
      private String logradouro;
-     private String numero;
+     private int numero;
      private String bairro;
      private String cidade;
      private Estado estado;
      private String cep;
 
-     public Endereco(String logradouro, String bairro, String cidade, Estado estado, String cep) {
+     public Endereco(String logradouro, int numero, String bairro, String cidade, Estado estado, String cep) {
           this.setLogradouro(logradouro);
           this.setNumero(numero);
           this.setBairro(bairro);
@@ -19,7 +19,7 @@ public class Endereco {
      
      @Override
      public String toString() {
-          return "Endereço: " + this.logradouro + ", N° " + this.numero + ", " + this.bairro + ", " + this.cidade + " - " + this.estado;
+          return "Endereço: " + this.logradouro + ", N°" + this.numero + ", " + this.bairro + ", " + this.cidade + "-" + this.estado + "\nCEP: " + this.cep;
      }
 
      // ------------------------------------------------------------------------
@@ -30,7 +30,7 @@ public class Endereco {
           return this.logradouro;
      }
 
-     public String getNumero() {
+     public int getNumero() {
           return this.numero;
      }
 
@@ -61,8 +61,8 @@ public class Endereco {
           this.logradouro = logradouro;
      }
 
-     public void setNumero(String numero) {
-          if(numero == null || numero.isEmpty() || Integer.parseInt(numero) <= 0) {
+     public void setNumero(int numero) {
+          if(numero <= 0) {
                throw new IllegalArgumentException("Número inválido!");
           }
           this.numero = numero;
@@ -94,10 +94,5 @@ public class Endereco {
                throw new IllegalArgumentException("O número de CEP informado é inválido!");
           }
           this.cep = cep;
-     }
-
-     public static void main(String[] args) {
-          Endereco casa = new Endereco("Rua Joaquim Rabelo", "Boaviaginha", "Boa Viagem", Estado.CE, "63870-000");
-          System.out.println(casa);
      }
 }
