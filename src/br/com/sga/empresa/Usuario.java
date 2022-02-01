@@ -1,7 +1,14 @@
 package br.com.sga.empresa;
 
 public class Usuario {
+     /**
+      *  No máximo 30 caractéres, sem acento.
+      */
      private String login; 
+
+     /**
+      *  No máximo 10 caractéres, sem acento. 
+      */
      private String senha;
      private boolean administrador;
 
@@ -19,7 +26,36 @@ public class Usuario {
      public String toString() {
           return "Usuário de login " + login + ((this.administrador) ? "(Administrador)." : ".") ;
      }
+     
+     @Override
+     public int hashCode() {
+          return this.login.hashCode() + this.senha.hashCode();
+     }
 
+     @Override
+     public boolean equals(Object obj) {
+          if (this == obj)
+               return true;
+          if (obj == null)
+               return false;
+          if (getClass() != obj.getClass())
+               return false;
+          Usuario other = (Usuario) obj;
+          if (administrador != other.administrador)
+               return false;
+          if (login == null) {
+               if (other.login != null)
+                    return false;
+          } else if (!login.equals(other.login))
+               return false;
+          if (senha == null) {
+               if (other.senha != null)
+                    return false;
+          } else if (!senha.equals(other.senha))
+               return false;
+          return true;
+     }
+     
      // ------------------------------------------------------------------------
      // Getters
      // ------------------------------------------------------------------------
