@@ -1,6 +1,5 @@
 package br.com.sga.empresa;
 
-import br.com.sga.pessoal.*;
 import br.com.sga.identidade.*;
 import br.com.sga.identidade.excecoes.PessoaInvalidaException;
 
@@ -9,7 +8,6 @@ public class Empresa {
      private String cnpj;
      private String email;
      private Endereco endereco;
-     private Funcionario gerente;
 
      public Empresa(String nome, String cnpj, String email, Endereco endereco) {
           this.setNome(nome);
@@ -24,10 +22,9 @@ public class Empresa {
           "Nome: %s%n" + 
           "CNPJ: %s%n" + 
           "E-mail: %s%n" + 
-          "Endereço: %s%n" + 
-          "Gerente: %s%n", 
+          "Endereço: %s%n", 
           this.nome, this.cnpj, this.email,
-          this.endereco, this.gerente);
+          this.endereco);
      }
 
      // ------------------------------------------------------------------------
@@ -62,13 +59,6 @@ public class Empresa {
           this.endereco = endereco;
      }  
 
-     public void setGerente(Funcionario gerente) throws IllegalArgumentException {
-          if(gerente == null) {
-               throw new IllegalArgumentException("Informe um gerente!");
-          }
-          this.gerente = gerente;
-     }  
-
      // ------------------------------------------------------------------------
      // Getters
      // ------------------------------------------------------------------------
@@ -87,9 +77,5 @@ public class Empresa {
 
      public Endereco getEndereco() {
           return this.endereco;
-     }
-
-     public Funcionario getGerente() {
-          return this.gerente;
      }
 }

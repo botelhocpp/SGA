@@ -1,6 +1,11 @@
 package br.com.sga.empresa;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
+     
+     private int id;
+
      /**
       *  No máximo 30 caractéres, sem acento.
       */
@@ -12,19 +17,16 @@ public class Usuario {
      private String senha;
      private boolean administrador;
 
-     public Usuario(String login, String senha) {
+     public Usuario(int id, String login, String senha, boolean administrador) {
+          this.id = id;
           this.setLogin(login);
           this.setSenha(senha);
-     }
-
-     public Usuario(String login, String senha, boolean administrador) {
-          this(login, senha);
           this.administrador = administrador;
      }
 
      @Override
      public String toString() {
-          return "Usuário de login " + login + ((this.administrador) ? "(Administrador)." : ".") ;
+          return "Usuário de ID " + this.id + " e login \033[1;32m" + login + "\033[0m" + ((this.administrador) ? " (Administrador)." : ".") ;
      }
      
      @Override
@@ -59,6 +61,10 @@ public class Usuario {
      // ------------------------------------------------------------------------
      // Getters
      // ------------------------------------------------------------------------
+
+     public int getId() {
+          return this.id;
+     }
 
      public String getLogin() {
           return this.login;
