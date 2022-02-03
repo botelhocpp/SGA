@@ -9,7 +9,7 @@ public abstract class Gerenciador {
 
      private void setBanco(String arquivoBanco) throws IllegalArgumentException {
           if(arquivoBanco == null || arquivoBanco.isEmpty()) {
-               throw new IllegalArgumentException("Insira um caminho para o arquivo.");
+               throw new IllegalArgumentException("Insira um caminho válido para o arquivo.");
           }
           this.arquivoBanco = arquivoBanco;
      }
