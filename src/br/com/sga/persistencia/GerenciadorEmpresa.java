@@ -18,24 +18,20 @@ public class GerenciadorEmpresa extends Gerenciador {
      public GerenciadorEmpresa(String caminhoBanco) {
           super(caminhoBanco);
 
-          try( FileInputStream arquivoEmpresa = new FileInputStream(caminhoBanco);
-               ObjectInputStream empresaStream = new ObjectInputStream(arquivoEmpresa);
-          )
-          {    
+          try (FileInputStream arquivoEmpresa = new FileInputStream(caminhoBanco);
+                    ObjectInputStream empresaStream = new ObjectInputStream(arquivoEmpresa);) {
                this.academia = (Empresa) empresaStream.readObject();
           }
           // O arquivo não pôde ser encontrado
-          catch(FileNotFoundException e) {
-              
-          }
-          catch(ClassNotFoundException e) {
-              System.out.println("Tentando ler um objeto de uma classe desconhecida.");
-          }
-          catch(StreamCorruptedException e) { // thrown by the constructor ObjectInputStream
-              System.out.println("Formato do arquivo não é válido.");
+          catch (FileNotFoundException e) {
+
+          } catch (ClassNotFoundException e) {
+               System.out.println("Tentando ler um objeto de uma classe desconhecida.");
+          } catch (StreamCorruptedException e) { // thrown by the constructor ObjectInputStream
+               System.out.println("Formato do arquivo não é válido.");
           }
           // Arquivo sem cabeçalho/vazio
-          catch(IOException e) {
+          catch (IOException e) {
                System.out.println("Houve um erro ao abrir o arquivo informado!");
           }
      }
@@ -44,7 +40,8 @@ public class GerenciadorEmpresa extends Gerenciador {
           this.academia = new Empresa(nome, cnpj, email);
      }
 
-     public void configurarEndereco(String logradouro, int numero, String bairro, String cidade, Estado estado, String cep) {
+     public void configurarEndereco(String logradouro, int numero, String bairro, String cidade, Estado estado,
+               String cep) {
           this.academia.setEndereco(new Endereco(logradouro, numero, bairro, cidade, estado, cep));
      }
 
@@ -53,14 +50,11 @@ public class GerenciadorEmpresa extends Gerenciador {
      }
 
      public void salvarDados() {
-          try( 
-               FileOutputStream arquivoEmpresa = new FileOutputStream(this.arquivoBanco);
-               ObjectOutputStream empresaStream = new ObjectOutputStream(arquivoEmpresa);
-          )
-          {
+          try (
+                    FileOutputStream arquivoEmpresa = new FileOutputStream(this.arquivoBanco);
+                    ObjectOutputStream empresaStream = new ObjectOutputStream(arquivoEmpresa);) {
                empresaStream.writeObject(this.academia);
-          }
-          catch(IOException e) {
+          } catch (IOException e) {
                System.out.println("Houve um erro ao abrir o arquivo informado!");
           }
      }
