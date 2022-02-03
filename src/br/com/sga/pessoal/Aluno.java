@@ -10,9 +10,10 @@ public class Aluno extends Pessoa {
      private String matricula;
      private List<Pagamento> pagamentos;
 
-     public Aluno(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco) {
+     public Aluno(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco, String matricula) {
           super(nome, telefone, sexo, cpf, dataNascimento, email, endereco);
-          pagamentos = new ArrayList<>();
+          this.pagamentos = new ArrayList<>();
+          this.matricula = matricula;
      }
 
      public List<Pagamento> getPagamentos() {
