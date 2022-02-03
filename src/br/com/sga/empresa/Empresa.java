@@ -1,19 +1,25 @@
 package br.com.sga.empresa;
 
+import java.io.Serializable;
+
 import br.com.sga.identidade.*;
 import br.com.sga.identidade.excecoes.PessoaInvalidaException;
 
-public class Empresa {
+public class Empresa implements Serializable {
      private String nome;
      private String cnpj;
      private String email;
      private Endereco endereco;
 
      public Empresa(String nome, String cnpj, String email, Endereco endereco) {
+          this(nome, cnpj, email);
+          this.setEndereco(endereco);
+     }
+
+     public Empresa(String nome, String cnpj, String email) {
           this.setNome(nome);
           this.setCnpj(cnpj);
           this.setEmail(email);
-          this.setEndereco(endereco);
      }
 
      @Override

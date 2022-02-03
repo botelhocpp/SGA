@@ -4,16 +4,19 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import br.com.sga.empresa.Usuario;
+import br.com.sga.identidade.Estado;
 import br.com.sga.persistencia.GerenciadorEmpresa;
 import br.com.sga.persistencia.GerenciadorUsuarios;
 
 public class AppSGA {
 
-     public static void main(String[] args) throws IOException {   
+     public static void main(String[] args) throws IOException {  
           /**
            * Configura os bancos de dados no diretório database.
            */
           inicializarBancos();
+
+          inicializarEmpresa();
 
           /**
            * Cria o administrador do sistema caso não tenham usuários.
@@ -53,6 +56,7 @@ public class AppSGA {
      private static void inicializarBancos() {
           try{
                bancoUsuarios = new GerenciadorUsuarios("database/Usuarios.bin");
+               bancoEmpresa = new GerenciadorEmpresa("database/Empresa.bin");
           }
           catch(IOException e) {
                System.out.println(e.getMessage());
@@ -61,6 +65,62 @@ public class AppSGA {
 
      private static void salvarDados() {
           bancoUsuarios.salvarUsuarios();
+          bancoEmpresa.salvarEmpresa();
+     }
+
+     private static void inicializarEmpresa() throws IOException {
+          if(bancoEmpresa.obterEmpresa() == null) {  
+               cabecalhoSGA();
+               System.out.println("Olá! Obrigado por adquirir o SGA!\n"
+               + "Iremos agora realizar as configurações iniciais da sua empresa.\n"
+               + "Pressione ENTER para configurarmos os dados da sua empresa.");
+
+               esperarEnter();
+               while(true) {
+                    try {
+                         cabecalhoSGA();
+                         System.out.print("Primeiramente insira o nome da sua academia.\n> ");
+                         String nome = leitor.nextLine();
+                         System.out.print("Agora, insira o CNPJ da sua empresa, apenas os números:\n> ");
+                         String cnpj = leitor.next();
+                         System.out.print("Insira o e-mail da sua empresa:\n> ");
+                         String email = leitor.next();
+                         bancoEmpresa.configurarEmpresa(nome, cnpj, email);
+                         
+                         // Limpar o buffer
+                         leitor.nextLine();
+
+                         System.out.println("Vamos agora configurar o endereço da sua academia.");
+                         System.out.print("Logradouro:\n> ");
+                         String logradouro = leitor.nextLine();
+                         System.out.print("Número (sem letras adjacentes):\n> ");
+                         int numero = leitor.nextInt();
+
+                         // Limpar o buffer
+                         leitor.nextLine();
+
+                         System.out.print("Bairro:\n> ");
+                         String bairro = leitor.nextLine();
+                         System.out.print("Cidade:\n> ");
+                         String cidade = leitor.nextLine();
+                         System.out.print("Estado (apenas a sigla):\n> ");
+                         String estado = leitor.nextLine();
+                         System.out.print("CEP:\n> ");
+                         String cep = leitor.nextLine();
+                         bancoEmpresa.configurarEndereco(logradouro, numero, bairro, cidade, Estado.valueOf(estado.toUpperCase()), cep);
+                         
+                         System.out.println("A empresa foi devidamente configurada! Pressione ENTER para continuar.");
+                         esperarEnter();   
+                         limparConsole(); 
+                         break;
+                    }
+                    catch(Exception e) {
+                         System.out.println(e.getMessage() + " Pressione ENTER para tentar de novo.");
+                         esperarEnter();   
+                         leitor.nextLine();
+                    }
+               }
+          }
      }
 
      private static void criarAdministrador() {

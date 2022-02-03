@@ -13,14 +13,13 @@ import java.util.TreeMap;
 
 import br.com.sga.empresa.Usuario;
 
-public class GerenciadorUsuarios {
+public class GerenciadorUsuarios extends Gerenciador {
 
-     private String arquivoBanco;
      private static int idIncremento = 1;
      private Map<Integer, Usuario> usuarios;
 
      public GerenciadorUsuarios(String caminhoBanco) throws IOException {
-          this.setBanco(caminhoBanco);
+          super(caminhoBanco);
           this.usuarios = new TreeMap<>();
 
           try( FileInputStream arquivoUsuarios = new FileInputStream(caminhoBanco);
@@ -93,17 +92,6 @@ public class GerenciadorUsuarios {
           catch(IOException e) {
                System.out.println("Houve um erro ao abrir o arquivo informado!");
           }
-     }
-
-     private void setBanco(String arquivoBanco) throws IllegalArgumentException {
-          if(arquivoBanco == null || arquivoBanco.isEmpty()) {
-               throw new IllegalArgumentException("Insira um caminho para o arquivo.");
-          }
-          this.arquivoBanco = arquivoBanco;
-     }
-
-     public String getBanco() {
-          return this.arquivoBanco;
      }
 
      public boolean isVazio() {
