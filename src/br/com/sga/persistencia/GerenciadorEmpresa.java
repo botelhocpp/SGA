@@ -24,7 +24,7 @@ public class GerenciadorEmpresa extends Gerenciador {
           }
           // O arquivo não pôde ser encontrado
           catch (FileNotFoundException e) {
-
+               System.out.println("Arquivo não encontrado.");
           } catch (ClassNotFoundException e) {
                System.out.println("Tentando ler um objeto de uma classe desconhecida.");
           } catch (StreamCorruptedException e) { // thrown by the constructor ObjectInputStream
