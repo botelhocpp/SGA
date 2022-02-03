@@ -187,29 +187,34 @@ public class AppSGA {
      }
 
      private static void menuPrincipal() throws IOException {
-          cabecalhoSGA();
-
-          System.out.print("1) Gerenciar Empresa\n" +
-          "2) Gerenciar Clientes\n" +
-          "3) Gerenciar Mensalidades\n" +
-          "4) Sair\n> ");
-          
           do {
+               cabecalhoSGA();
+     
+               System.out.print("1) Gerenciar Empresa\n" +
+               "2) Gerenciar Usuários" +
+               "3) Gerenciar Clientes\n" +
+               "4) Gerenciar Mensalidades\n" +
+               "5) Sair\n> ");
+
                switch(opcaoMenu = leitor.nextInt()) {
                     case 1:
                          menuEmpresa();
                          break;
                     case 2:
-                         menuClientes();
+                         menuUsuario();
                          break;
                     case 3:
-                         menuMensalidades();
+                         menuClientes();
                          break;
                     case 4:
+                         menuMensalidades();
+                         break;
+                    case 5:
                          System.out.println("Saindo do Sistema...");
                          break;
                     default:
-                         System.out.println("Opção inválida! Tente novamente.");
+                         System.out.println("Opção inválida! Aperte ENTER para tentar novamente.");
+                         esperarEnter();
                }
 
           } while(opcaoMenu != 4);
@@ -221,8 +226,74 @@ public class AppSGA {
                esperarEnter();
                return;
           }
-
           
+          do {
+               cabecalhoSGA();
+               System.out.print("1) Modificar o Nome da Empresa\n" +
+               "2) Mudar o CNPJ da Empresa\n" +
+               "3) Trocar o e-mail da Empresa\n" +
+               "4) Modificar o endereço da Empresa\n" +
+               "5) Retornar\n> ");
+
+               switch(opcaoMenu = leitor.nextInt()) {
+                    case 1:
+                         // Modificar o Nome da Empresa
+                         break;
+                    case 2:
+                         // Mudar o CNPJ da Empresa
+                         break;
+                    case 3:
+                         // Trocar o e-mail da Empresa
+                         break;
+                    case 4:
+                         // Modificar o endereço da Empresa
+                         break;
+                    case 5:
+                         break;
+                    default:
+                         System.out.println("Opção inválida! Aperte ENTER para tentar novamente.");
+                         esperarEnter();
+               }
+
+          } while(opcaoMenu != 6); 
+     }
+
+     private static void menuUsuario() throws IOException {
+          if(!usuarioAtual.isAdministrador()) {
+               System.out.println("Você não tem permissão para acessar o menu de usuários!\nPressione ENTER para continuar.");
+               esperarEnter();
+               return;
+          }
+          
+          do {
+               cabecalhoSGA();
+               System.out.print("1) Adicionar um Usuário\n" +
+               "2) Listar os Usuários\n" +
+               "3) Atualizar um Usuário\n" +
+               "4) Remover um Usuário\n"+
+               "5) Retornar\n> ");
+
+               switch(opcaoMenu = leitor.nextInt()) {
+                    case 1:
+                         // Adicionar um Usuário 
+                         break;
+                    case 2:
+                         // Listar os Usuários
+                         break;
+                    case 3:
+                         // Atualizar um Usuário
+                         break;
+                    case 4:
+                         // Remover um Usuário
+                         break;
+                    case 5:
+                         break;
+                    default:
+                         System.out.println("Opção inválida! Aperte ENTER para tentar novamente.");
+                         esperarEnter();
+               }
+
+          } while(opcaoMenu != 5); 
           
      }
 
