@@ -52,7 +52,7 @@ public class GerenciadorEmpresa extends Gerenciador {
           return this.academia;
      }
 
-     public void salvarEmpresa() {
+     public void salvarDados() {
           try( 
                FileOutputStream arquivoEmpresa = new FileOutputStream(this.arquivoBanco);
                ObjectOutputStream empresaStream = new ObjectOutputStream(arquivoEmpresa);

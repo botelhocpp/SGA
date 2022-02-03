@@ -47,7 +47,6 @@ public class AppSGA {
      private static GerenciadorEmpresa bancoEmpresa;
      private static Scanner leitor = new Scanner(System.in);
      private static Usuario usuarioAtual;
-     private static int opcaoMenu;
 
      // ------------------------------------------------------------------------
      // Métodos do Back-end da Aplicação
@@ -64,8 +63,8 @@ public class AppSGA {
      }
 
      private static void salvarDados() {
-          bancoUsuarios.salvarUsuarios();
-          bancoEmpresa.salvarEmpresa();
+          bancoUsuarios.salvarDados();
+          bancoEmpresa.salvarDados();
      }
 
      private static void inicializarEmpresa() throws IOException {
@@ -73,7 +72,7 @@ public class AppSGA {
                cabecalhoSGA();
                System.out.println("Olá! Obrigado por adquirir o SGA!\n"
                + "Iremos agora realizar as configurações iniciais da sua empresa.\n"
-               + "Pressione ENTER para configurarmos os dados da sua empresa.");
+               + "Pressione \033[1;32mENTER\033[0m para configurarmos os dados da sua empresa.");
 
                esperarEnter();
                while(true) {
@@ -109,13 +108,13 @@ public class AppSGA {
                          String cep = leitor.nextLine();
                          bancoEmpresa.configurarEndereco(logradouro, numero, bairro, cidade, Estado.valueOf(estado.toUpperCase()), cep);
                          
-                         System.out.println("A empresa foi devidamente configurada! Pressione ENTER para continuar.");
+                         System.out.println("A empresa foi devidamente configurada! Pressione \033[1;32mENTER\033[0m para continuar.");
                          esperarEnter();   
                          limparConsole(); 
                          break;
                     }
                     catch(Exception e) {
-                         System.out.println(e.getMessage() + " Pressione ENTER para tentar de novo.");
+                         System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();   
                          leitor.nextLine();
                     }
@@ -134,7 +133,7 @@ public class AppSGA {
                          System.out.print("Insira a senha. Sua senha deve ter no mínimo 5 caracteres:\n> ");
                          String senha = leitor.next();
                          bancoUsuarios.criarUsuario(login, senha, true);
-                         System.out.println("O usuário admnistrador do sistema foi criado! Pressione ENTER para continuar.");
+                         System.out.println("O usuário admnistrador do sistema foi criado! Pressione \033[1;32mENTER\033[0m para continuar.");
                          esperarEnter();   
                          limparConsole(); 
                          break;
@@ -157,10 +156,10 @@ public class AppSGA {
                     String senha = leitor.next();
                     usuarioAtual = bancoUsuarios.obterUsuario(login, senha);
                     if (usuarioAtual == null) {
-                         System.out.println("Dados inválidos! Pressione ENTER para tentar novamente.");
+                         System.out.println("Dados inválidos! Pressione \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                     } else {
-                         System.out.println("Seja bem vindo! Pressione ENTER para continuar.");
+                         System.out.println("Seja bem vindo! Pressione \033[1;32mENTER\033[0m para continuar.");
                          esperarEnter();
                          break;
                     }
@@ -187,11 +186,12 @@ public class AppSGA {
      }
 
      private static void menuPrincipal() throws IOException {
+          int opcaoMenu;
           do {
                cabecalhoSGA();
      
                System.out.print("1) Gerenciar Empresa\n" +
-               "2) Gerenciar Usuários" +
+               "2) Gerenciar Usuários\n" +
                "3) Gerenciar Clientes\n" +
                "4) Gerenciar Mensalidades\n" +
                "5) Sair\n> ");
@@ -210,22 +210,23 @@ public class AppSGA {
                          menuMensalidades();
                          break;
                     case 5:
-                         System.out.println("Saindo do Sistema...");
+                         System.out.println("Finalizando o Sistema. Aguarde...");
                          break;
                     default:
-                         System.out.println("Opção inválida! Aperte ENTER para tentar novamente.");
+                         System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
 
-          } while(opcaoMenu != 4);
+          } while(opcaoMenu != 5);
      }
 
      private static void menuEmpresa() throws IOException {
           if(!usuarioAtual.isAdministrador()) {
-               System.out.println("Você não tem permissão para acessar o menu da empresa!\nPressione ENTER para continuar.");
+               System.out.println("Você não tem permissão para acessar o menu da empresa!\nPressione \033[1;32mENTER\033[0m para continuar.");
                esperarEnter();
                return;
           }
+          int opcaoMenu;
           
           do {
                cabecalhoSGA();
@@ -251,20 +252,20 @@ public class AppSGA {
                     case 5:
                          break;
                     default:
-                         System.out.println("Opção inválida! Aperte ENTER para tentar novamente.");
+                         System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
 
-          } while(opcaoMenu != 6); 
+          } while(opcaoMenu != 5); 
      }
 
      private static void menuUsuario() throws IOException {
           if(!usuarioAtual.isAdministrador()) {
-               System.out.println("Você não tem permissão para acessar o menu de usuários!\nPressione ENTER para continuar.");
+               System.out.println("Você não tem permissão para acessar o menu de usuários!\nPressione \033[1;32mENTER\033[0m para continuar.");
                esperarEnter();
                return;
           }
-          
+          int opcaoMenu;
           do {
                cabecalhoSGA();
                System.out.print("1) Adicionar um Usuário\n" +
@@ -289,7 +290,7 @@ public class AppSGA {
                     case 5:
                          break;
                     default:
-                         System.out.println("Opção inválida! Aperte ENTER para tentar novamente.");
+                         System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
 

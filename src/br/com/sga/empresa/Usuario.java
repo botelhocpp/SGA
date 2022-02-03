@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
      
-     private int id;
+     private final int id;
 
      /**
       *  No máximo 30 caractéres, sem acento.

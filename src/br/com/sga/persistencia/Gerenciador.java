@@ -17,4 +17,6 @@ public abstract class Gerenciador {
      public String getBanco() {
           return this.arquivoBanco;
      }
+
+     public abstract void salvarDados();
 }

@@ -80,7 +80,7 @@ public class GerenciadorUsuarios extends Gerenciador {
           this.usuarios.put(id, new Usuario(id, login, antigoUsuario.getSenha(), antigoUsuario.isAdministrador()));
      }
 
-     public void salvarUsuarios() {
+     public void salvarDados() {
           try( FileOutputStream arquivoUsuarios = new FileOutputStream(this.arquivoBanco);
                ObjectOutputStream usuariosStream = new ObjectOutputStream(arquivoUsuarios);
           )
