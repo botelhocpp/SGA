@@ -323,6 +323,7 @@ public class MenuAluno {
 
           while(true) {
                try {
+                    limparConsole();
                     cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
