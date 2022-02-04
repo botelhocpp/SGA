@@ -1,8 +1,8 @@
 package br.com.sga.persistencia;
 
-public class GerenciadorMensalidades extends Gerenciador {
+public class GerenciadorPagamento extends Gerenciador {
 
-     public GerenciadorMensalidades(String caminhoBanco) {
+     public GerenciadorPagamento(String caminhoBanco) {
           super(caminhoBanco);
      }
 
