@@ -99,7 +99,8 @@ public abstract class ValidacaoDadosPessoais {
                boolean check2 = (valor == Integer.parseInt(registro.charAt(13) + ""));
 
                return (check1 && check2 ? true : false);
-          } else {
+          }
+          else {
                throw new IllegalArgumentException("Quantidade inválida de digitos!");
           }
      }
@@ -135,5 +136,11 @@ public abstract class ValidacaoDadosPessoais {
       */
      public static boolean validarCep(String cep) {
           return cep.matches(REGEX_CEP);
+     }
+
+     public void validarIdentificador(String identificador) {
+          if (identificador == null || identificador.isEmpty()) {
+               throw new IllegalArgumentException("Informe um identificador válido!");
+          }
      }
 }
