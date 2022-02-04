@@ -15,6 +15,43 @@ public class DateHelper implements Comparable<DateHelper>, Serializable {
      private GregorianCalendar gregorianCalendar;
      private Date date;
 
+     @Override
+     public int hashCode() {
+          final int prime = 31;
+          int result = 1;
+          result = prime * result + ((date == null) ? 0 : date.hashCode());
+          result = prime * result + ((formatter == null) ? 0 : formatter.hashCode());
+          result = prime * result + ((gregorianCalendar == null) ? 0 : gregorianCalendar.hashCode());
+          return result;
+     }
+
+     @Override
+     public boolean equals(Object obj) {
+          if (this == obj)
+               return true;
+          if (obj == null)
+               return false;
+          if (getClass() != obj.getClass())
+               return false;
+          DateHelper other = (DateHelper) obj;
+          if (date == null) {
+               if (other.date != null)
+                    return false;
+          } else if (!date.equals(other.date))
+               return false;
+          if (formatter == null) {
+               if (other.formatter != null)
+                    return false;
+          } else if (!formatter.equals(other.formatter))
+               return false;
+          if (gregorianCalendar == null) {
+               if (other.gregorianCalendar != null)
+                    return false;
+          } else if (!gregorianCalendar.equals(other.gregorianCalendar))
+               return false;
+          return true;
+     }
+
      public DateHelper(Date date) {
           this.formatter = new SimpleDateFormat("dd/MM/yyyy");
           this.gregorianCalendar = new GregorianCalendar();

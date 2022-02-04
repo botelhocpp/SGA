@@ -15,9 +15,7 @@ public abstract class Pessoa implements Comparable<Pessoa>, Serializable {
      protected String email;
      protected Endereco endereco;
 
-     public Pessoa() {
-
-     }
+     public Pessoa() {}
 
      @Override
      public int hashCode() {
@@ -76,6 +74,8 @@ public abstract class Pessoa implements Comparable<Pessoa>, Serializable {
                return false;
           return true;
      }
+
+
 
      public Pessoa(String nome, String telefone, Sexo sexo, String cpf, DateHelper dataNascimento, String email, Endereco endereco) {
           this.setNome(nome);

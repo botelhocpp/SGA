@@ -337,7 +337,7 @@ public class MenuAluno {
                     if (aluno == null) {
                          limparConsole();
                          cabecalhoSGA();
-                         throw new Exception("Aluno não existente");
+                         throw new Exception("Aluno não existente\n");
                     }
                     limparConsole();
                     break;
@@ -387,6 +387,10 @@ public class MenuAluno {
           System.out.println("Aluno: " + aluno.getNome());
           for (Pagamento pagamento : mensalidadesPagas) {
                System.out.println(pagamento);
+          }
+
+          if (mensalidadesPagas.isEmpty()) {
+               System.out.println("Aluno ainda não fez pagamentos.");
           }
 
           System.out.println("\nPressione \033[1;32mENTER\033[0m para voltar.");

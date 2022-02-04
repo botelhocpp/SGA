@@ -60,6 +60,31 @@ public class Aluno extends Pessoa {
           return this.cpf.compareTo(outra.cpf);
      }
 
-     
+     @Override
+     public int hashCode() {
+          final int prime = 31;
+          int result = super.hashCode();
+          result = prime * result + matricula;
+          result = prime * result + ((pagamentos == null) ? 0 : pagamentos.hashCode());
+          return result;
+     }
 
+     @Override
+     public boolean equals(Object obj) {
+          if (this == obj)
+               return true;
+          if (!super.equals(obj))
+               return false;
+          if (getClass() != obj.getClass())
+               return false;
+          Aluno other = (Aluno) obj;
+          if (matricula != other.matricula)
+               return false;
+          if (pagamentos == null) {
+               if (other.pagamentos != null)
+                    return false;
+          } else if (!pagamentos.equals(other.pagamentos))
+               return false;
+          return true;
+     }
 }
