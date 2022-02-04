@@ -133,10 +133,11 @@ public class Caixa {
     }
 
     // private Map<DateHelper, Double> historicoCaixa;
-    public void listarCaixa() {
+    public String listarCaixa() {
         StringBuilder acc = new StringBuilder();
         for(Map.Entry<DateHelper, Double> entrada : this.historicoCaixa.entrySet()) {
             acc.append("Data: " + entrada.getKey() + ", Valor: R$" + entrada.getValue() + "\n");
         }
+        return acc.toString();
     }
 }

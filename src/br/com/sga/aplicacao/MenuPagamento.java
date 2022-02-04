@@ -28,8 +28,9 @@ public class MenuPagamento {
                               "\033[1;94m3) \033[0;94mFazer pagamento da mensalidade do Aluno\033[0m\n" +
                               "\033[1;94m4) \033[0;94mListar alunos com mensalidade em dia\033[0m\n" + 
                               "\033[1;94m5) \033[0;94mListar alunos com mensalidade atrasada\033[0m\n" + 
-                              "\033[1;94m6) \033[0;94mBuscar caixa por data\033[0m\n" + 
-                              "\033[1;94m7) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
+                              "\033[1;94m6) \033[0;94mListar o histórico do caixa\033[0m\n" + 
+                              "\033[1;94m7) \033[0;94mBuscar caixa por data\033[0m\n" + 
+                              "\033[1;94m8) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
 
                opcaoMenu = leitor.nextInt();
                limparBuffer();           
@@ -50,16 +51,19 @@ public class MenuPagamento {
                          listarAlunosMensalidadeAtrasada();
                          break;
                     case 6:
-                         buscarSaldoDiarioPorData();
+                         listarCaixa();
                          break;
                     case 7:
+                         buscarSaldoDiarioPorData();
+                         break;
+                    case 8:
                          break;
                     default:
                          System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
                               
-          } while (opcaoMenu != 7);
+          } while (opcaoMenu != 8);
      }
 
      public static void abrirCaixaDoDia() throws IOException {
@@ -194,6 +198,12 @@ public class MenuPagamento {
           else {
                System.out.println("Saldo diário: R$" + decimalFormat.format(saldoDiario) + ".\nPressione \033[1;32mENTER\033[0m para voltar.");
           }
+          esperarEnter();
+          limparConsole();
+     }
+
+     public static void listarCaixa() throws IOException {
+          System.out.println(caixa.listarCaixa() + "\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole();
      }

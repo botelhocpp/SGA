@@ -11,7 +11,7 @@ import java.io.StreamCorruptedException;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import br.com.sga.pessoal.Aluno;
 import br.com.sga.pessoal.Sexo;
@@ -26,7 +26,7 @@ public class GerenciadorAlunos extends Gerenciador {
 
      public GerenciadorAlunos(String caminhoBanco) throws IOException {
           super(caminhoBanco);
-          this.alunos = new HashMap<>();
+          this.alunos = new TreeMap<>();
 
           try (
                FileInputStream arquivoAlunos = new FileInputStream(caminhoBanco);
@@ -38,7 +38,8 @@ public class GerenciadorAlunos extends Gerenciador {
                     try {
                          alunoTemporario = (Aluno) alunosStream.readObject();
                          this.alunos.put(alunoTemporario.getMatricula(), alunoTemporario);
-                    } catch (EOFException e) {
+                    }
+                    catch (EOFException e) {
                          break;
                     }
                }
@@ -94,8 +95,13 @@ public class GerenciadorAlunos extends Gerenciador {
           return alunosListar;
      }
 
-     public void atualizarAluno(Aluno aluno) {
+     public boolean atualizarAluno(Aluno aluno) {
+          Aluno aluno_anterior = obterAluno(aluno.getMatricula());
+          if (aluno.equals(aluno_anterior)) {
+               return false;
+          }
           this.alunos.put(aluno.getMatricula(), aluno);
+          return true;
      }
 
      @Override

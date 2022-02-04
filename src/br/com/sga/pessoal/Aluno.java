@@ -7,9 +7,7 @@ import br.com.sga.identidade.Endereco;
 import br.com.sga.financeiro.Pagamento;
 import br.com.sga.datehelper.DateHelper;
 
-import java.io.Serializable;
-
-public class Aluno extends Pessoa implements Serializable {
+public class Aluno extends Pessoa {
      private int matricula;
      private List<Pagamento> pagamentos;
 

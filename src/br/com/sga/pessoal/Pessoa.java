@@ -1,10 +1,12 @@
 package br.com.sga.pessoal;
 
+import java.io.Serializable;
+
 import br.com.sga.datehelper.DateHelper;
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.ValidacaoDadosPessoais;
 
-public abstract class Pessoa implements Comparable<Pessoa> {
+public abstract class Pessoa implements Comparable<Pessoa>, Serializable {
      protected String nome;
      protected String telefone;
      protected Sexo sexo;
