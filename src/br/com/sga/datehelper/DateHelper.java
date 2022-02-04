@@ -6,7 +6,9 @@ import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-public class DateHelper implements Comparable<DateHelper> {
+import java.io.Serializable;
+
+public class DateHelper implements Comparable<DateHelper>, Serializable {
 
      SimpleDateFormat formatter;
 

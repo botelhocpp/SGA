@@ -1,8 +1,9 @@
 package br.com.sga.financeiro;
 
 import br.com.sga.datehelper.DateHelper;
+import java.io.Serializable;
 
-public class Pagamento implements Comparable<Pagamento> {
+public class Pagamento implements Comparable<Pagamento>, Serializable {
   private DateHelper dataPagamento;
   private Double mensalidade;
 
