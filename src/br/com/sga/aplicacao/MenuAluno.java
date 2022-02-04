@@ -319,17 +319,20 @@ public class MenuAluno {
 
      public static void buscarAlunoMatricula() throws IOException {
           int matricula = 0;
-
           Aluno aluno = null;
 
           while(true) {
                try {
+                    cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
                     aluno = bancoAlunos.obterAluno(matricula);
                     if (aluno == null) {
+                         limparConsole();
+                         cabecalhoSGA();
                          throw new Exception("Aluno não existente");
                     }
+                    limparConsole();
                     break;
                }
                catch (Exception e) {
@@ -338,6 +341,7 @@ public class MenuAluno {
                }
           }
 
+          cabecalhoSGA();
           System.out.println(aluno + "\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
