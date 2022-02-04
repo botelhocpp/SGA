@@ -387,7 +387,7 @@ public class MenuAluno {
                System.out.println(pagamento);
           }
 
-          System.out.println(aluno + "\nPressione \033[1;32mENTER\033[0m para voltar.");
+          System.out.println("\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
      }

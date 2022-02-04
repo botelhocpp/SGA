@@ -101,12 +101,14 @@ public class MenuPagamento {
           Double mensalidade;
           DateHelper dataAtual = new DateHelper(new Date());
 
+          Aluno aluno = null;
+
           while(true) {
                try {
                     cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
-                    Aluno aluno = bancoAlunos.obterAluno(matricula);
+                    aluno = bancoAlunos.obterAluno(matricula);
                     if (aluno == null) {
                          throw new Exception("Aluno não existente");
                     }
@@ -138,6 +140,7 @@ public class MenuPagamento {
           Pagamento pagamento = new Pagamento(dataAtual, mensalidade);
 
           if (caixa.fazerPagamento(matricula, pagamento)) {
+               aluno.adicionarPagamento(pagamento);
                System.out.println("Pagamento feito com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
           } else {
                System.out.println("Falha ao fazer pagamento! Motivo: Caixa fechado, espere o próximo dia\nPressione \033[1;32mENTER\033[0m para voltar.");

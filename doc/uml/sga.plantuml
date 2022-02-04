@@ -19,129 +19,88 @@ package br.com.sga.empresa <<Folder>> {
      }
 
      class Usuario {
+
+     }
+}
+
+package br.com.sga.financeiro <<Folder>> {
+
+     class Caixa {
           
+     }
+
+     class Pagamento {
+
      }
 }
 
 package br.com.sga.identidade <<Folder>> {
 
      class Endereco {
-          -logradouro : String
-          -bairro : String
-          -cep : String
-          -cidade : String
-          -estado : Estado
+
      }
 
      enum Estado {
-          AC
-          AL
-          AP
-          AM
-          BA
-          CE
-          DF
-          ES
-          GO
-          MA
-          MT
-          MS
-          MG
-          PA
-          PB
-          PR
-          PE
-          PI
-          RJ
-          RN
-          RS
-          RO
-          RR
-          SC
-          SP
-          SE
-          TO
-          +toString() : String
+
      }
 
      class ValidacaoDadosPessoais {
-          validarRegistroNacional(registro : String) : boolean
-          validarEmail(email : String) : boolean
-          validarTelefone(telefone : String) : boolean
+
      }
 
 }
+
+package br.com.sga.persistencia <<Folder>> {
+
+     abstract class Gerenciador {
+
+     }
+
+     class GerenciadorAlunos {
+
+     }
+
+     class GerenciadorEmpresa {
+
+     }
+
+     class GerenciadorHistoricoCaixa {
+
+     }
+
+     class GerenciadorUsuarios {
+
+     }
+
+}
+
 package br.com.sga.pessoal <<Folder>> {
 
      abstract class Pessoa <<Comparable>> {
-          -nome : String
-          -telefone : String
-          -sexo : Sexo
-          -dataNascimento : LocalDateTime
-          -email : String
-          -cpf : String
-          -endereco : Endereco
-          +toString() : String
-     }
-
-     class Funcionario extends Pessoa {
 
      }
 
      class Aluno extends Pessoa {
-          {static} -matriculaIncremento : int
-          -matriculaNumero : int
-          -historicoMensalidade : Map<LocalDateTime, Double>
-          -dataMensalidade : LocalDateTime
-          +Aluno(...)
-          +pagarMensalidade(valorMensalidade : double) : void
-          +verificarSituacao() : boolean
-          +hashCode() : int
-          +equals(referential : Object) : boolean
-          +toString() : String
+
      }
 
      enum Sexo {
-          MASCULINO
-          FEMININO
-          OUTRO
-          +toString() : String
+
      }
 }
 
-package br.com.sga.financeiro <<Folder>> {
+Gerenciador <|-- GerenciadorAlunos
+GerenciadorEmpresa
+GerenciadorHistoricoCaixa
+GerenciadorUsuarios
 
-     abstract class GerenciadorCaixa {
-          -inicioCaixa : LocalDateTime
-          -finalCaixa : LocalDateTime
-          -dataAtual : LocalDateTime
-          -totalData : Map<LocalDateTime, Double>
-          +atualizarCaixa() : void
-          {abstract} +abrirCaixa() : boolean
-          {abstract} +fecharCaixa() : boolean
-          +getInicioCaixa() : LocalDateTime
-          +getFinalCaixa() : LocalDateTime
-          +getAtualCaixa() : LocalDateTime
-          +toString() : String
-     }
-
-     class GerenciadorAlunos extends GerenciadorCaixa {
-          -mensalidades : Map<Aluno, Boolean>
-          +GerenciadorAlunos()
-          +verificarMensalidade(matricula : int) : boolean
-          +adicionarAluno(aluno : Aluno) : void
-          +adicionarAluno(alunos : Collection<Aluno>) : void
-          +removerAluno() : Aluno
-          +getAluno(matricula : int) : Aluno
-          +getAlunos() : Set<Aluno>
-          +toString() : String
-     }
-}
-
+Pessoa *-- DateHelper
+Pessoa *-- Endereco
 Pessoa *-- Sexo
 
-GerenciadorAlunos *-- Aluno
+Aluno *-- Pagamento
 
-Empresa *-- Estado
+GerenciadorUsuarios o-- Usuario
+
 
 @enduml
