@@ -18,6 +18,10 @@ public class Endereco implements Serializable {
           this.setEstado(estado);
           this.setCep(cep);
      }
+
+     public Endereco() {
+          
+     }
      
      @Override
      public String toString() {
@@ -56,7 +60,7 @@ public class Endereco implements Serializable {
      // Setters
      // ------------------------------------------------------------------------
 
-     private void setLogradouro(String logradouro) {
+     public void setLogradouro(String logradouro) {
           if(logradouro == null || logradouro.isEmpty()) {
                throw new IllegalArgumentException("Nome do logradouro inválido!");
           }
@@ -70,28 +74,28 @@ public class Endereco implements Serializable {
           this.numero = numero;
      }
 
-     private void setBairro(String bairro) {
+     public void setBairro(String bairro) {
           if(bairro == null || bairro.isEmpty()) {
                throw new IllegalArgumentException("Nome do bairro inválido!");
           }
           this.bairro = bairro;
      }
 
-     private void setCidade(String cidade) {
+     public void setCidade(String cidade) {
           if(cidade == null || cidade.isEmpty()) {
                throw new IllegalArgumentException("Nome da cidade inválido!");
           }
           this.cidade = cidade;
      }
 
-     private void setEstado(Estado estado) {
+     public void setEstado(Estado estado) {
           if(estado == null) {
                throw new IllegalArgumentException("Informe um estado!");
           }
           this.estado = estado;
      }
 
-     private void setCep(String cep) throws IllegalArgumentException {
+     public void setCep(String cep) throws IllegalArgumentException {
           if(!ValidacaoDadosPessoais.validarCep(cep)) {
                throw new IllegalArgumentException("O número de CEP informado é inválido!");
           }

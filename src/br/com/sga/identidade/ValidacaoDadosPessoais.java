@@ -6,6 +6,10 @@ public abstract class ValidacaoDadosPessoais {
      private static final String REGEX_TELEFONE = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}\\-\\d{4})";
      private static final String REGEX_CEP = "\\d{5}\\-\\d{3}";
 
+     public static void main(String args[]) {
+          System.out.println(validarEmail("d"));
+     }
+
      /**
       * Valida um número de registro nacional, tais como CPF e CNPJ
       * 

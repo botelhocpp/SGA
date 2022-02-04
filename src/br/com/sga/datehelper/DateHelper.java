@@ -24,7 +24,7 @@ public class DateHelper {
                this.gregorianCalendar = new GregorianCalendar();
                this.gregorianCalendar.setTime(formatter.parse(date));
           } catch (ParseException e) {
-               System.out.println(e.getMessage());
+               System.out.println("Data informada inválida!");
           }
      }
 

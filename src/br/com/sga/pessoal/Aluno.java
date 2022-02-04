@@ -16,12 +16,12 @@ public class Aluno extends Pessoa {
           this.matricula = matricula;
      }
 
-     public List<Pagamento> getPagamentos() {
-          return this.pagamentos;
+     public void adicionarPagamento(Pagamento pagamento) {
+          pagamentos.add(pagamento);
      }
 
-     public void fazerPagamento(Pagamento pagamento) {
-          pagamentos.add(pagamento);
+     public List<Pagamento> getPagamentos() {
+          return this.pagamentos;
      }
 
      public Integer getMatricula() {

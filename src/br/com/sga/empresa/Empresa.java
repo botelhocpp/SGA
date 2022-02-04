@@ -11,6 +11,10 @@ public class Empresa implements Serializable {
      private String email;
      private Endereco endereco;
 
+     public Empresa() {
+          
+     }
+
      public Empresa(String nome, String cnpj, String email, Endereco endereco) {
           this(nome, cnpj, email);
           this.setEndereco(endereco);
@@ -37,14 +41,14 @@ public class Empresa implements Serializable {
      // Setters
      // ------------------------------------------------------------------------
 
-     private void setNome(String nome) throws IllegalArgumentException {
+     public void setNome(String nome) throws IllegalArgumentException {
           if(nome == null || nome.isEmpty()) {
                throw new IllegalArgumentException("Nome da empresa inválido!");
           }
           this.nome = nome;
      }
 
-     private void setCnpj(String cnpj) throws PessoaInvalidaException {
+     public void setCnpj(String cnpj) throws PessoaInvalidaException {
           if(!ValidacaoDadosPessoais.validarRegistroNacional(cnpj)) {
                throw new PessoaInvalidaException("O número do CNPJ informado é inválido!");
           }
@@ -52,7 +56,7 @@ public class Empresa implements Serializable {
      }
 
      public void setEmail(String email) throws IllegalArgumentException {
-          if(email == null || email.isEmpty()) {
+          if(email == null || email.isEmpty() || !ValidacaoDadosPessoais.validarEmail(email)) {
                throw new IllegalArgumentException("E-mail da empresa inválido!");
           }
           this.email = email;

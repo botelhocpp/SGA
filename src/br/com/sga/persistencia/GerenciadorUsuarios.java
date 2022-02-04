@@ -39,7 +39,7 @@ public class GerenciadorUsuarios extends Gerenciador {
           }
           // O arquivo não pôde ser encontrado
           catch(FileNotFoundException e) {
-              
+               System.out.println("Arquivo não encontrado.");
           }
           catch(ClassNotFoundException e) {
               System.out.println("Tentando ler um objeto de uma classe desconhecida.");
@@ -67,17 +67,39 @@ public class GerenciadorUsuarios extends Gerenciador {
           return null;
      }
 
-     public void removerUsuario(int id) {
-          this.usuarios.remove(id);
+     public boolean removerUsuario(int id) {
+          return (this.usuarios.remove(id) == null) ? true : false;
      }
      
      public void listarUsuario() {
           this.usuarios.values().forEach(System.out::println);
      }
      
-     public void atualizarLogin(int id, String login) {
+     public boolean atualizarLogin(int id, String login) {
           Usuario antigoUsuario = this.usuarios.get(id);
+          if(antigoUsuario == null) {
+               return false;
+          }
           this.usuarios.put(id, new Usuario(id, login, antigoUsuario.getSenha(), antigoUsuario.isAdministrador()));
+          return true;
+     }
+     
+     public boolean atualizarSenha(int id, String senha) {
+          Usuario antigoUsuario = this.usuarios.get(id);
+          if(antigoUsuario == null) {
+               return false;
+          }
+          this.usuarios.put(id, new Usuario(id, antigoUsuario.getLogin(), senha, antigoUsuario.isAdministrador()));
+          return true;
+     }
+     
+     public boolean atualizarPermissao(int id, boolean administrador) {
+          Usuario antigoUsuario = this.usuarios.get(id);
+          if(antigoUsuario == null) {
+               return false;
+          }
+          this.usuarios.put(id, new Usuario(id, antigoUsuario.getLogin(), antigoUsuario.getSenha(), administrador));
+          return true;
      }
 
      public void salvarDados() {

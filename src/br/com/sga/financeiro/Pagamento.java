@@ -4,9 +4,11 @@ import br.com.sga.datehelper.DateHelper;
 
 public class Pagamento implements Comparable<Pagamento> {
   private DateHelper dataPagamento;
+  private Double mensalidade;
 
-  public Pagamento(DateHelper dataPagamento) {
+  public Pagamento(DateHelper dataPagamento, Double mensalidade) {
     this.dataPagamento = dataPagamento;
+    this.mensalidade = mensalidade;
   }
 
   public DateHelper getDataPagamento() {
@@ -16,6 +18,11 @@ public class Pagamento implements Comparable<Pagamento> {
   public void setDataPagamento(DateHelper dataPagamento) {
     this.dataPagamento = dataPagamento;
   }
+
+  public Double getMensalidade() {
+    return this.mensalidade;
+  }
+
 
   @Override
   public int compareTo(Pagamento other) {
