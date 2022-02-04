@@ -90,9 +90,9 @@ package br.com.sga.pessoal <<Folder>> {
 }
 
 Gerenciador <|-- GerenciadorAlunos
-GerenciadorEmpresa
-GerenciadorHistoricoCaixa
-GerenciadorUsuarios
+Gerenciador <|-- GerenciadorEmpresa
+Gerenciador <|-- GerenciadorHistoricoCaixa
+Gerenciador <|-- GerenciadorUsuarios
 
 Pessoa *-- DateHelper
 Pessoa *-- Endereco
@@ -101,6 +101,18 @@ Pessoa *-- Sexo
 Aluno *-- Pagamento
 
 GerenciadorUsuarios o-- Usuario
+GerenciadorHistoricoCaixa o-- DateHelper
+GerenciadorEmpresa *-- Empresa 
+GerenciadorAlunos o-- Aluno
+
+Endereco *-- Estado
+
+Pagamento *-- DateHelper
+
+Caixa *-- DateHelper
+Caixa o-- Aluno
+
+Empresa *-- Endereco
 
 
 @enduml

@@ -6,6 +6,7 @@ import static br.com.sga.aplicacao.AppSGA.esperarEnter;
 import static br.com.sga.aplicacao.AppSGA.leitor;
 import static br.com.sga.aplicacao.AppSGA.limparBuffer;
 import static br.com.sga.aplicacao.AppSGA.limparConsole;
+import static br.com.sga.aplicacao.AppSGA.caixa;
 
 import java.io.IOException;
 import java.util.List;
@@ -305,6 +306,7 @@ public class MenuAluno {
 
           cabecalhoSGA();
           bancoAlunos.criarAluno(aluno);
+          caixa.adicionarAluno(aluno);
           System.out.println("O aluno foi criado com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
           esperarEnter();
           limparConsole(); 
