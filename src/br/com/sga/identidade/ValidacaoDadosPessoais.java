@@ -3,7 +3,7 @@ package br.com.sga.identidade;
 public abstract class ValidacaoDadosPessoais {
      // RFC 5322
      private static final String REGEX_EMAIL = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-     private static final String REGEX_TELEFONE = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}\\-\\d{4})";
+     private static final String REGEX_TELEFONE = "(\\(?\\d{2}\\)?\\s?)?(\\d{4,5}\\-?\\d{4})";
      private static final String REGEX_CEP = "\\d{5}\\-\\d{3}";
 
      public static void main(String args[]) {

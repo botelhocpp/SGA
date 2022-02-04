@@ -131,4 +131,11 @@ public class Caixa {
 
         return ret;
     }
+
+    // private Map<DateHelper, Double> historicoCaixa;
+    public void ver() {
+        for(Map.Entry<DateHelper, Double> entrada : this.historicoCaixa.entrySet()) {
+            System.out.println("Data: " + entrada.getKey() + ", Valor: R$" + entrada.getValue());
+        }
+    }
 }

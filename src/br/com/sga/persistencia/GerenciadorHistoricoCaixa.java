@@ -1,5 +1,6 @@
 package br.com.sga.persistencia;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,7 +25,19 @@ public class GerenciadorHistoricoCaixa extends Gerenciador {
                     FileInputStream arquivoHistoricoCaixa = new FileInputStream(caminhoBanco);
                     ObjectInputStream historicoCaixaStream = new ObjectInputStream(arquivoHistoricoCaixa);
                ) {
-               this.historicoCaixa = (Map<DateHelper, Double>) historicoCaixaStream.readObject();
+               
+               DateHelper dataTemporaria;
+               Double valorTemporario;
+
+               while (true) {
+                    try {
+                         dataTemporaria = (DateHelper) historicoCaixaStream.readObject();
+                         valorTemporario =  (Double) historicoCaixaStream.readObject();
+                         this.historicoCaixa.put(dataTemporaria, valorTemporario);
+                    } catch (EOFException e) {
+                         break;
+                    }
+               }
           }
           // O arquivo não pôde ser encontrado
           catch (FileNotFoundException e) {
@@ -50,7 +63,10 @@ public class GerenciadorHistoricoCaixa extends Gerenciador {
                     FileOutputStream arquivoHistoricoCaixa = new FileOutputStream(this.arquivoBanco);
                     ObjectOutputStream historicoCaixaStream = new ObjectOutputStream(arquivoHistoricoCaixa);
                ) {
-               historicoCaixaStream.writeObject(this.historicoCaixa);
+               for(Map.Entry<DateHelper, Double> entrada : this.historicoCaixa.entrySet()) {
+                    historicoCaixaStream.writeObject(entrada.getKey());
+                    historicoCaixaStream.writeObject(entrada.getValue());
+               }
           } catch (IOException e) {
                System.out.println("Houve um erro ao abrir o arquivo informado!");
           }

@@ -69,7 +69,7 @@ public class GerenciadorUsuarios extends Gerenciador {
      }
 
      public boolean removerUsuario(int id) {
-          return (this.usuarios.remove(id) == null) ? true : false;
+          return (this.usuarios.remove(id) != null) ? true : false;
      }
      
      public void listarUsuario() {
