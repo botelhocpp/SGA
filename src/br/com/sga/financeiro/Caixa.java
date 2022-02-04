@@ -58,12 +58,16 @@ public class Caixa {
 
         Pagamento ultimoPagamento = aluno.getPagamentos().get(aluno.getPagamentos().size()-1);
         DateHelper dataPagamentoAluno = ultimoPagamento.getDataPagamento();
+        DateHelper validadeMensalidade = new DateHelper(dataPagamentoAluno.getDate());
 
-        dataPagamentoAluno.adicionarMeses(1);
+        validadeMensalidade.adicionarMeses(1);
 
         DateHelper hoje = new DateHelper(new Date());
 
-        return (dataPagamentoAluno.comparar(hoje.getDate()) > 0  ? true : false);
+        System.out.println("Data hoje: " + hoje);
+        System.out.println("Mensalidade valida: " + validadeMensalidade);
+
+        return (validadeMensalidade.comparar(hoje.getDate()) > 0  ? true : false);
     }
 
     public void adicionarAluno(Aluno aluno) {

@@ -340,6 +340,9 @@ public class MenuAluno {
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
                }
+               finally {
+                    limparBuffer();
+               }
           }
 
           cabecalhoSGA();
@@ -355,6 +358,7 @@ public class MenuAluno {
 
           while(true) {
                try {
+                    cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
                     aluno = bancoAlunos.obterAluno(matricula);
@@ -366,6 +370,9 @@ public class MenuAluno {
                catch (Exception e) {
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
+               }
+               finally {
+                    limparBuffer();
                }
           }
 
@@ -427,7 +434,7 @@ public class MenuAluno {
                try {
                     cabecalhoSGA();
                     System.out.print("Insira o novo sexo do aluno (F - Feminino, M - Masculino, O - Outro). Dê ENTER caso não deseje alterar:\n> ");
-                    String letra = leitor.next().toUpperCase();
+                    String letra = leitor.nextLine().toUpperCase();
                     limparBuffer();
                     if (letra.isEmpty()) {
                          limparConsole();
@@ -459,7 +466,6 @@ public class MenuAluno {
                     limparConsole();
                }
           } 
-
 
           while (true) {
                try {
@@ -647,7 +653,7 @@ public class MenuAluno {
                try {
                     cabecalhoSGA();
                     System.out.print("Informe o novo CEP. Dê ENTER caso não deseje alterar:\n> ");
-                    String novo_cep = leitor.next();
+                    String novo_cep = leitor.nextLine();
                     if (novo_cep.isEmpty()) {
                          limparConsole();
                          break;
@@ -660,7 +666,6 @@ public class MenuAluno {
                     esperarEnter();
                }
                finally {
-                    limparBuffer();
                     limparConsole(); 
                }
           }

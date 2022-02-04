@@ -16,10 +16,10 @@ public class DateHelper implements Comparable<DateHelper>, Serializable {
      private Date date;
 
      public DateHelper(Date date) {
+          this.formatter = new SimpleDateFormat("dd/MM/yyyy");
           this.gregorianCalendar = new GregorianCalendar();
           this.gregorianCalendar.setTime(date);
           this.date = date;
-          this.formatter = new SimpleDateFormat("dd/MM/yyyy");
      }
 
      public DateHelper(String date) {
