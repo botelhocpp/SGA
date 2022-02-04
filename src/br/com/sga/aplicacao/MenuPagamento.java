@@ -203,6 +203,7 @@ public class MenuPagamento {
      }
 
      public static void listarCaixa() throws IOException {
+          cabecalhoSGA();
           System.out.println(caixa.listarCaixa() + "\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole();
