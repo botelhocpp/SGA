@@ -81,7 +81,7 @@ public class Caixa {
 
     public Aluno obterAluno(int matricula) {
         for (Aluno aluno : alunos) {
-            if (aluno.getMatricula().equals(matricula)) {
+            if (aluno.getMatricula() == matricula) {
                 return aluno;
             }
         }
