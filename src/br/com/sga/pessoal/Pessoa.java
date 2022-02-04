@@ -13,6 +13,10 @@ public abstract class Pessoa implements Comparable<Pessoa> {
      protected String email;
      protected Endereco endereco;
 
+     public Pessoa() {
+
+     }
+
      public Pessoa(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco) {
           this.setNome(nome);
           this.setTelefone(telefone);
@@ -71,49 +75,49 @@ public abstract class Pessoa implements Comparable<Pessoa> {
      // Setters
      // ------------------------------------------------------------------------
 
-     private void setNome(String nome) throws IllegalArgumentException {
+     public void setNome(String nome) throws IllegalArgumentException {
           if(nome == null || nome.isEmpty()) {
                throw new IllegalArgumentException("Nome informado é inválido!");
           }
           this.nome = nome;
      }
 
-     private void setTelefone(String telefone) throws IllegalArgumentException {
+     public void setTelefone(String telefone) throws IllegalArgumentException {
           if(!ValidacaoDadosPessoais.validarTelefone(telefone)) {
                throw new IllegalArgumentException("Número de telefone inválido!");
           }
           this.telefone = telefone;
      }
 
-     private void setSexo(Sexo sexo) throws IllegalArgumentException {
+     public void setSexo(Sexo sexo) throws IllegalArgumentException {
           if(sexo == null) {
                throw new IllegalArgumentException("Informe um sexo!");
           }
           this.sexo = sexo;
      }
 
-     private void setCpf(String cpf) throws IllegalArgumentException {
+     public void setCpf(String cpf) throws IllegalArgumentException {
           if(!ValidacaoDadosPessoais.validarRegistroNacional(cpf)) {
                throw new IllegalArgumentException("Número de CPF inválido");
           }
           this.cpf = cpf;
      }
 
-     private void setDataNascimento(String dataNascimento) throws IllegalArgumentException {
+     public void setDataNascimento(String dataNascimento) throws IllegalArgumentException {
           if(dataNascimento == null) {
                throw new IllegalArgumentException("Informe uma data de nascimento!");
           }
           this.dataNascimento = new DateHelper(dataNascimento);
      }
 
-     private void setEmail(String email) throws IllegalArgumentException {
+     public void setEmail(String email) throws IllegalArgumentException {
           if(!ValidacaoDadosPessoais.validarEmail(email)) {
                throw new IllegalArgumentException("Endereço de e-mail inválido");
           }
           this.email = email;
      }
 
-     private void setEndereco(Endereco endereco) throws IllegalArgumentException {
+     public void setEndereco(Endereco endereco) throws IllegalArgumentException {
           if(endereco == null) {
                throw new IllegalArgumentException("Informe um endereço!");
           }

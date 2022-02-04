@@ -13,6 +13,7 @@ import br.com.sga.datehelper.DateHelper;
 import br.com.sga.empresa.Usuario;
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.Estado;
+import br.com.sga.identidade.ValidacaoDadosPessoais;
 import br.com.sga.persistencia.GerenciadorHistoricoCaixa;
 import br.com.sga.persistencia.GerenciadorEmpresa;
 import br.com.sga.persistencia.GerenciadorUsuarios;
@@ -20,6 +21,7 @@ import br.com.sga.persistencia.GerenciadorAlunos;
 import br.com.sga.financeiro.Caixa;
 import br.com.sga.financeiro.Pagamento;
 import br.com.sga.pessoal.Aluno;
+import br.com.sga.pessoal.Sexo;
 
 public class AppSGA {
 
@@ -153,12 +155,12 @@ public class AppSGA {
           do {
                cabecalhoSGA();
 
-               System.out.print("1) Gerenciar Empresa\n" +
-                         "2) Gerenciar Usuários\n" +
-                         "3) Gerenciar Alunos\n" +
-                         "4) Gerenciar Pagamentos\n" +
-                         "5) Dados da Empresa\n" +
-                         "6) Sair\n> ");
+               System.out.print("\033[1;94m1)\033[0m \033[0;94mGerenciar Empresa\033[0m\n" +
+                         "\033[1;94m2)\033[0m \033[0;94mGerenciar Usuários\033[0m\n" +
+                         "\033[1;94m3)\033[0m \033[0;94mGerenciar Alunos\033[0m\n" +
+                         "\033[1;94m4)\033[0m \033[0;94mGerenciar Pagamentos\033[0m\n" +
+                         "\033[1;94m5)\033[0m \033[0;94mDados da Empresa\033[0m\n" +
+                         "\033[1;94m6)\033[0m \033[0;94mSair\033[0m\n\033[1;97m>\033[0m ");
                          
                opcaoMenu = leitor.nextInt();
                limparBuffer();           
@@ -297,13 +299,13 @@ public class AppSGA {
                          adicionarAluno();
                          break;
                     case 2:
-                         // Listar os Usuários
+                         listarAlunos();
                          break;
                     case 3:
-                         // Atualizar um Usuário
+                         atualizarAluno();
                          break;
                     case 4:
-                         // Remover um Usuário
+                         removerAluno();
                          break;
                     case 5:
                          break;
@@ -843,46 +845,133 @@ public class AppSGA {
      // ------------------------------------------------------------------------]
 
      private static void adicionarAluno() throws IOException {
-          
-     }
+          Aluno aluno = new Aluno();
 
-     // ------------------------------------------------------------------------
-     // Métodos do Menu de Pagamentos
-     // ------------------------------------------------------------------------
+          while(true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira o nome do aluno:\n> ");
+                    aluno.setNome(leitor.nextLine());
+                    if(aluno.getNome().isEmpty()) {
+                         System.out.println("Nome inválido! O nome do aluno deve ter no mínimo 1 caractere!" +
+                         "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
+                         esperarEnter();
+                         limparConsole();
+                         continue;
+                    }
+                    limparConsole();
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+                    limparConsole();
+               }
+          }  
 
-     private static void abrirCaixaDoDia() throws IOException {
-          if (caixa.abrirCaixa()) {
-               System.out.println("Caixa aberto com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
-          } else {
-               System.out.println("Caixa já está aberto!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          while(true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira o telefone do aluno:\n> ");
+                    aluno.setTelefone(leitor.nextLine());
+                    if(ValidacaoDadosPessoais.validarTelefone(aluno.getTelefone())) {
+                         System.out.println("Telefone inválido!" +
+                         "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
+                         esperarEnter();
+                         limparConsole();
+                         continue;
+                    }
+                    limparConsole();
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+                    limparConsole();
+               }
+          }  
+
+          while(true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira o sexo do aluno (1 - Feminino, 2 - Masculino, 3 - Outro):\n> ");
+                    int numeroSexo = leitor.nextInt();
+                    if(numeroSexo != 1 && numeroSexo != 2 && numeroSexo != 3) {
+                         System.out.println("Dígito inválido! Deve digitar 1, 2 ou 3!" +
+                         "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
+                         esperarEnter();
+                         limparConsole();
+                         continue;
+                    }
+                    switch (numeroSexo) {
+                         case 1:
+                              aluno.setSexo(Sexo.MASCULINO);
+                              break;
+                         case 2;
+                              aluno.setSexo(Sexo.FEMININO);
+                              break;
+                         case 3:
+                              aluno.setSexo(Sexo.OUTRO);
+                              break;
+                    }
+                    limparConsole();
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+                    limparConsole();
+               }
+          } 
+
+
+          while(true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira o cpf do aluno:\n> ");
+                    aluno.setTelefone(leitor.nextLine());
+                    if(ValidacaoDadosPessoais.validarTelefone(aluno.getTelefone())) {
+                         System.out.println("Telefone inválido!" +
+                         "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
+                         esperarEnter();
+                         limparConsole();
+                         continue;
+                    }
+                    limparConsole();
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+                    limparConsole();
+               }
           }
-          System.out.println("Caixa aberto com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
+
+          cabecalhoSGA();
+          System.out.println("O aluno foi criado com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
           esperarEnter();
           limparConsole(); 
      }
 
-     private static void fecharCaixaDoDia() throws IOException {
-          if (caixa.fecharCaixa()) {
-               System.out.println("Caixa fechado com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
-          } else {
-               System.out.println("Caixa já está fechado!\nPressione \033[1;32mENTER\033[0m para continuar.");
+     private static void listarAlunos() throws IOException {
+          List<Aluno> alunosListar = bancoAlunos.listarAlunos();
+          System.out.println("Alunos:");
+          for (Aluno aluno : alunosListar) {
+               System.out.println("- Matrícula: " + aluno.getMatricula() + ", Nome: " + aluno.getNome());
           }
-          System.out.println("Caixa fechado com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          limparConsole();
+          cabecalhoSGA();
+          System.out.println("Pressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
      }
 
-     private static void fazerPagamentoAluno() throws IOException {
-          if (!caixa.obterEstadoCaixa()) {
-               System.out.println("Caixa está fechado!\nPressione \033[1;32mENTER\033[0m para voltar.");
-               esperarEnter();
-               limparConsole(); 
-               return;
-          }
+     private static void atualizarAluno() throws IOException {
 
+     }
+
+     private static void removerAluno() throws IOException {
           int matricula = 0;
-          Double mensalidade;
-          DateHelper dataAtual = new DateHelper(new Date());
 
           while(true) {
                try {
@@ -898,10 +987,82 @@ public class AppSGA {
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
                }
+          }     
+
+          limparConsole();
+          cabecalhoSGA();
+          if (bancoAlunos.removerAluno(matricula)) {
+               System.out.println("Aluno removido com sucesso! Pressione \033[1;32mENTER\033[0m para voltar.");
+          } else {
+               System.out.println("O aluno não foi removido, rente novamente! Pressione \033[1;32mENTER\033[0m para voltar.");
+          }
+
+          esperarEnter();
+          limparConsole(); 
+     }
+
+     // ------------------------------------------------------------------------
+     // Métodos do Menu de Pagamentos
+     // ------------------------------------------------------------------------
+
+     private static void abrirCaixaDoDia() throws IOException {
+          cabecalhoSGA();
+          if (caixa.abrirCaixa()) {
+               System.out.println("Caixa aberto com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
+          } else {
+               System.out.println("Caixa já está aberto!\nPressione \033[1;32mENTER\033[0m para voltar.");
+          }
+          System.out.println("Caixa aberto com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
+          esperarEnter();
+          limparConsole(); 
+     }
+
+     private static void fecharCaixaDoDia() throws IOException {
+          cabecalhoSGA();
+          if (caixa.fecharCaixa()) {
+               System.out.println("Caixa fechado com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
+          } else {
+               System.out.println("Caixa já está fechado!\nPressione \033[1;32mENTER\033[0m para voltar.");
+          }
+          System.out.println("Caixa fechado com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
+          esperarEnter();
+          limparConsole(); 
+     }
+
+     private static void fazerPagamentoAluno() throws IOException {
+          if (!caixa.obterEstadoCaixa()) {
+               cabecalhoSGA();
+               System.out.println("Caixa está fechado!\nPressione \033[1;32mENTER\033[0m para voltar.");
+               esperarEnter();
+               limparConsole(); 
+               return;
+          }
+
+          int matricula = 0;
+          Double mensalidade;
+          DateHelper dataAtual = new DateHelper(new Date());
+
+          while(true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira o número da matrícula do Aluno:\n> ");
+                    matricula = leitor.nextInt();
+                    Aluno aluno = bancoAlunos.obterAluno(matricula);
+                    if (aluno == null) {
+                         throw new Exception("Aluno não existente");
+                    }
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+                    limparConsole();
+               }
           }
 
           while(true) {
                try {
+                    cabecalhoSGA();
                     System.out.print("Digite o valor da mensalidade do Aluno:\n> ");
                     mensalidade = leitor.nextDouble();
                     break;
@@ -909,15 +1070,18 @@ public class AppSGA {
                catch (Exception e) {
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
+                    limparConsole();
                }
           }
           
+          cabecalhoSGA();
+
           Pagamento pagamento = new Pagamento(dataAtual, mensalidade);
 
           if (caixa.fazerPagamento(matricula, pagamento)) {
-               System.out.println("Pagamento feito com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
+               System.out.println("Pagamento feito com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
           } else {
-               System.out.println("Falha ao fazer pagamento! Motivo: Caixa fechado, espere o próximo dia\nPressione \033[1;32mENTER\033[0m para continuar.");
+               System.out.println("Falha ao fazer pagamento! Motivo: Caixa fechado, espere o próximo dia\nPressione \033[1;32mENTER\033[0m para voltar.");
           }
           
           esperarEnter();
@@ -925,23 +1089,25 @@ public class AppSGA {
      }
      
      private static void listarAlunosMensalidadeEmDia() throws IOException {
+          cabecalhoSGA();
           List<Aluno> alunosMensalidadeEmDia = caixa.listarAlunosMensalidadeEmDia();
           System.out.println("Alunos com mensalidade em dia:");
           for (Aluno aluno : alunosMensalidadeEmDia) {
                System.out.println("- " + aluno.getNome());
           }
-          System.out.println("Pressione \033[1;32mENTER\033[0m para continuar.");
+          System.out.println("Pressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
      }
 
      private static void listarAlunosMensalidadeAtrasada() throws IOException {
+          cabecalhoSGA();
           List<Aluno> alunosMensalidadeAtrasada = caixa.listarAlunosMensalidadeAtrasada();
           System.out.println("Alunos com mensalidade atrasada:");
           for (Aluno aluno : alunosMensalidadeAtrasada) {
                System.out.println("- " + aluno.getNome());
           }
-          System.out.println("Pressione \033[1;32mENTER\033[0m para continuar.");
+          System.out.println("Pressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
      }
@@ -950,6 +1116,7 @@ public class AppSGA {
           DateHelper data;
           while(true) {
                try {
+                    cabecalhoSGA();
                     System.out.print("Insira uma data no seguinte formato (dd/MM/aaaa):\n> ");
                     data = new DateHelper(leitor.nextLine());
                     break;
@@ -957,12 +1124,15 @@ public class AppSGA {
                catch (Exception e) {
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
+                    limparConsole();
                }
           }
 
+          limparConsole();
+          cabecalhoSGA();
           DecimalFormat decimalFormat = new DecimalFormat("##.##");
           Double saldoDiario = caixa.buscarCaixaPorData(data);
-          System.out.println("Saldo diário:" + decimalFormat.format(saldoDiario) + "!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          System.out.println("Saldo diário:" + decimalFormat.format(saldoDiario) + "!\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole();
      }

@@ -68,10 +68,12 @@ public class GerenciadorAlunos extends Gerenciador {
           return null;
      }
 
-     public void removerAluno(Integer matricula) {
+     public boolean removerAluno(Integer matricula) {
           if (matricula < matriculaIncremento) {
                alunos.remove(matricula);
+               return true;
           }
+          return false;
      }
 
      public List<Aluno> listarAlunos() {
