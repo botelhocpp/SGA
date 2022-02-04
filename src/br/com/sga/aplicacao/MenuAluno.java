@@ -386,6 +386,7 @@ public class MenuAluno {
           for (Pagamento pagamento : mensalidadesPagas) {
                System.out.println(pagamento);
           }
+
           System.out.println(aluno + "\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
@@ -728,7 +729,6 @@ public class MenuAluno {
                     cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
-                    limparBuffer();
                     Aluno aluno = bancoAlunos.obterAluno(matricula);
                     if (aluno == null) {
                          throw new Exception("Aluno não existente");
@@ -738,6 +738,9 @@ public class MenuAluno {
                catch (Exception e) {
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
+               }
+               finally {
+                    limparBuffer();
                }
           }     
 

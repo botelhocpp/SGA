@@ -64,8 +64,8 @@ public class Caixa {
 
         DateHelper hoje = new DateHelper(new Date());
 
-        System.out.println("Data hoje: " + hoje);
-        System.out.println("Mensalidade valida: " + validadeMensalidade);
+        // System.out.println("Data hoje: " + hoje);
+        // System.out.println("Mensalidade valida: " + validadeMensalidade);
 
         return (validadeMensalidade.comparar(hoje.getDate()) > 0  ? true : false);
     }

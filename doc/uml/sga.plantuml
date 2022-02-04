@@ -5,27 +5,21 @@ Manual: https://plantuml.com/class-diagram#a05971470d7fd711
 @startuml sga
 skinparam classAttributeIconSize 0
 
+
+package br.com.sga.datehelper <<Folder>> {
+
+     class DateHelper {
+          
+     }
+}
+
 package br.com.sga.empresa <<Folder>> {
      class Empresa {
-          -nome : String
-          -cnpj : String
-          -email : String
-          -telefone : String
-          -dono : Funcionario
-          -responsavel : Funcionario
-          -usuarioAdministrador : Usuario
-          -localizacao : Endereco
-          +Empresa(nomeEmpresa : String, cnpjEmpresa : String)
-          +toString() : String
+          
      }
 
      class Usuario {
-          -login : String
-          -senha : String
-          +Usuario(login : String, senha : String)
-          +getLogin() : String
-          +getSenha() : String
-          +toString() : String
+          
      }
 }
 
