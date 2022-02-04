@@ -10,7 +10,7 @@ import br.com.sga.persistencia.GerenciadorUsuarios;
 
 public class AppSGA {
 
-     public static void main(String[] args) throws IOException {  
+     public static void main(String[] args) throws IOException {
           /**
            * Configura os bancos de dados no diretório database.
            */
@@ -27,7 +27,7 @@ public class AppSGA {
            * Realizar login:
            */
           loginSistema();
-          
+
           /**
            * Apresenta a tela de login ao usuário.
            */
@@ -53,11 +53,10 @@ public class AppSGA {
      // ------------------------------------------------------------------------
 
      private static void inicializarBancos() {
-          try{
+          try {
                bancoUsuarios = new GerenciadorUsuarios("database/Usuarios.bin");
                bancoEmpresa = new GerenciadorEmpresa("database/Empresa.bin");
-          }
-          catch(IOException e) {
+          } catch (IOException e) {
                System.out.println(e.getMessage());
           }
      }
@@ -68,24 +67,26 @@ public class AppSGA {
      }
 
      private static void inicializarEmpresa() throws IOException {
-          if(bancoEmpresa.obterEmpresa() == null) {  
+          if (bancoEmpresa.obterEmpresa() == null) {
                cabecalhoSGA();
                System.out.println("Olá! Obrigado por adquirir o SGA!\n"
-               + "Iremos agora realizar as configurações iniciais da sua empresa.\n"
-               + "Pressione \033[1;32mENTER\033[0m para configurarmos os dados da sua empresa.");
+                         + "Iremos agora realizar as configurações iniciais da sua empresa.\n"
+                         + "Pressione \033[1;32mENTER\033[0m para configurarmos os dados da sua empresa.");
 
                esperarEnter();
-               while(true) {
+               while (true) {
                     try {
                          cabecalhoSGA();
+
                          System.out.print("Primeiramente insira o nome da sua academia.\n> ");
                          String nome = leitor.nextLine();
+
                          System.out.print("Agora, insira o CNPJ da sua empresa, apenas os números:\n> ");
                          String cnpj = leitor.next();
                          System.out.print("Insira o e-mail da sua empresa:\n> ");
                          String email = leitor.next();
                          bancoEmpresa.configurarEmpresa(nome, cnpj, email);
-                         
+
                          // Limpar o buffer
                          leitor.nextLine();
 
@@ -106,16 +107,17 @@ public class AppSGA {
                          String estado = leitor.nextLine();
                          System.out.print("CEP:\n> ");
                          String cep = leitor.nextLine();
-                         bancoEmpresa.configurarEndereco(logradouro, numero, bairro, cidade, Estado.valueOf(estado.toUpperCase()), cep);
-                         
-                         System.out.println("A empresa foi devidamente configurada! Pressione \033[1;32mENTER\033[0m para continuar.");
-                         esperarEnter();   
-                         limparConsole(); 
+                         bancoEmpresa.configurarEndereco(logradouro, numero, bairro, cidade,
+                                   Estado.valueOf(estado.toUpperCase()), cep);
+
+                         System.out.println(
+                                   "A empresa foi devidamente configurada! Pressione \033[1;32mENTER\033[0m para continuar.");
+                         esperarEnter();
+                         limparConsole();
                          break;
-                    }
-                    catch(Exception e) {
+                    } catch (Exception e) {
                          System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
-                         esperarEnter();   
+                         esperarEnter();
                          leitor.nextLine();
                     }
                }
@@ -123,9 +125,9 @@ public class AppSGA {
      }
 
      private static void criarAdministrador() {
-          if(bancoUsuarios.isVazio()) {
+          if (bancoUsuarios.isVazio()) {
                System.out.println("Crie o usuário administrador do sistema.");
-               while(true) {
+               while (true) {
                     try {
                          cabecalhoSGA();
                          System.out.print("Insira o login do usuário. Seu login deve ter no mínimo 5 caracteres:\n> ");
@@ -133,12 +135,12 @@ public class AppSGA {
                          System.out.print("Insira a senha. Sua senha deve ter no mínimo 5 caracteres:\n> ");
                          String senha = leitor.next();
                          bancoUsuarios.criarUsuario(login, senha, true);
-                         System.out.println("O usuário admnistrador do sistema foi criado! Pressione \033[1;32mENTER\033[0m para continuar.");
-                         esperarEnter();   
-                         limparConsole(); 
+                         System.out.println(
+                                   "O usuário admnistrador do sistema foi criado! Pressione \033[1;32mENTER\033[0m para continuar.");
+                         esperarEnter();
+                         limparConsole();
                          break;
-                    }
-                    catch(Exception e) {
+                    } catch (Exception e) {
                          System.out.println(e.getMessage());
                     }
                }
@@ -189,14 +191,14 @@ public class AppSGA {
           int opcaoMenu;
           do {
                cabecalhoSGA();
-     
-               System.out.print("1) Gerenciar Empresa\n" +
-               "2) Gerenciar Usuários\n" +
-               "3) Gerenciar Clientes\n" +
-               "4) Gerenciar Mensalidades\n" +
-               "5) Sair\n> ");
 
-               switch(opcaoMenu = leitor.nextInt()) {
+               System.out.print("1) Gerenciar Empresa\n" +
+                         "2) Gerenciar Usuários\n" +
+                         "3) Gerenciar Clientes\n" +
+                         "4) Gerenciar Mensalidades\n" +
+                         "5) Sair\n> ");
+
+               switch (opcaoMenu = leitor.nextInt()) {
                     case 1:
                          menuEmpresa();
                          break;
@@ -217,26 +219,27 @@ public class AppSGA {
                          esperarEnter();
                }
 
-          } while(opcaoMenu != 5);
+          } while (opcaoMenu != 5);
      }
 
      private static void menuEmpresa() throws IOException {
-          if(!usuarioAtual.isAdministrador()) {
-               System.out.println("Você não tem permissão para acessar o menu da empresa!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          if (!usuarioAtual.isAdministrador()) {
+               System.out.println(
+                         "Você não tem permissão para acessar o menu da empresa!\nPressione \033[1;32mENTER\033[0m para continuar.");
                esperarEnter();
                return;
           }
           int opcaoMenu;
-          
+
           do {
                cabecalhoSGA();
                System.out.print("1) Modificar o Nome da Empresa\n" +
-               "2) Mudar o CNPJ da Empresa\n" +
-               "3) Trocar o e-mail da Empresa\n" +
-               "4) Modificar o endereço da Empresa\n" +
-               "5) Retornar\n> ");
+                         "2) Mudar o CNPJ da Empresa\n" +
+                         "3) Trocar o e-mail da Empresa\n" +
+                         "4) Modificar o endereço da Empresa\n" +
+                         "5) Retornar\n> ");
 
-               switch(opcaoMenu = leitor.nextInt()) {
+               switch (opcaoMenu = leitor.nextInt()) {
                     case 1:
                          // Modificar o Nome da Empresa
                          break;
@@ -256,12 +259,13 @@ public class AppSGA {
                          esperarEnter();
                }
 
-          } while(opcaoMenu != 5); 
+          } while (opcaoMenu != 5);
      }
 
      private static void menuUsuario() throws IOException {
-          if(!usuarioAtual.isAdministrador()) {
-               System.out.println("Você não tem permissão para acessar o menu de usuários!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          if (!usuarioAtual.isAdministrador()) {
+               System.out.println(
+                         "Você não tem permissão para acessar o menu de usuários!\nPressione \033[1;32mENTER\033[0m para continuar.");
                esperarEnter();
                return;
           }
@@ -269,14 +273,14 @@ public class AppSGA {
           do {
                cabecalhoSGA();
                System.out.print("1) Adicionar um Usuário\n" +
-               "2) Listar os Usuários\n" +
-               "3) Atualizar um Usuário\n" +
-               "4) Remover um Usuário\n"+
-               "5) Retornar\n> ");
+                         "2) Listar os Usuários\n" +
+                         "3) Atualizar um Usuário\n" +
+                         "4) Remover um Usuário\n" +
+                         "5) Retornar\n> ");
 
-               switch(opcaoMenu = leitor.nextInt()) {
+               switch (opcaoMenu = leitor.nextInt()) {
                     case 1:
-                         // Adicionar um Usuário 
+                         // Adicionar um Usuário
                          break;
                     case 2:
                          // Listar os Usuários
@@ -294,20 +298,20 @@ public class AppSGA {
                          esperarEnter();
                }
 
-          } while(opcaoMenu != 5); 
-          
+          } while (opcaoMenu != 5);
+
      }
 
      private static void menuClientes() {
-          
+
      }
 
      private static void menuMensalidades() {
-          
+
      }
 
      private static void esperarEnter() throws IOException {
-          System.in.read();    
+          System.in.read();
      }
 
 }
