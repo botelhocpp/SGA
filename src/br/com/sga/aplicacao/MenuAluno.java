@@ -25,7 +25,7 @@ public class MenuAluno {
                cabecalhoSGA();
                System.out.print("\033[1;94m1) \033[0;94mAdicionar um Aluno\033[0m\n" +
                          "\033[1;94m2) \033[0;94mListar os Alunos\033[0m\n" +
-                         "\033[1;94m3) \033[0;Buscar Aluno por matrícula\033[0m\n" +
+                         "\033[1;94m3) \033[0;94mBuscar Aluno por matrícula\033[0m\n" +
                          "\033[1;94m4) \033[0;94mAtualizar um Aluno\033[0m\n" +
                          "\033[1;94m5) \033[0;94mRemover um Aluno\033[0m\n" +
                          "\033[1;94m6) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
