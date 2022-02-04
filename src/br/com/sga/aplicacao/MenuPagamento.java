@@ -29,8 +29,7 @@ public class MenuPagamento {
                               "\033[1;94m4) \033[0;94mListar alunos com mensalidade em dia\033[0m\n" + 
                               "\033[1;94m5) \033[0;94mListar alunos com mensalidade atrasada\033[0m\n" + 
                               "\033[1;94m6) \033[0;94mListar o histórico do caixa\033[0m\n" + 
-                              "\033[1;94m7) \033[0;94mBuscar caixa por data\033[0m\n" + 
-                              "\033[1;94m8) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
+                              "\033[1;94m7) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
 
                opcaoMenu = leitor.nextInt();
                limparBuffer();           
@@ -54,16 +53,13 @@ public class MenuPagamento {
                          listarCaixa();
                          break;
                     case 7:
-                         buscarSaldoDiarioPorData();
-                         break;
-                    case 8:
                          break;
                     default:
                          System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
                               
-          } while (opcaoMenu != 8);
+          } while (opcaoMenu != 7);
      }
 
      public static void abrirCaixaDoDia() throws IOException {
