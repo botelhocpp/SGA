@@ -188,8 +188,6 @@ public class MenuPagamento {
           DecimalFormat decimalFormat = new DecimalFormat("##.##");
           Double saldoDiario = caixa.buscarCaixaPorData(data);
 
-          caixa.ver();
-
           if(saldoDiario == null) {
                System.out.println("Saldo inexistente para a data informada.\nPressione \033[1;32mENTER\033[0m para voltar.");
           }
