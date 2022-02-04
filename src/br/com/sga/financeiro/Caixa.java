@@ -97,6 +97,9 @@ public class Caixa {
     }
 
     public List<Aluno> listarAlunosMensalidadeEmDia() {
+        for (Aluno aluno : alunos) {
+            this.mensalidade.put(aluno.getMatricula(), verificarMensalidade(aluno.getMatricula()));
+        }
         List<Aluno> alunosMensalidadeEmDia = new ArrayList<>();
         for (Map.Entry<Integer, Boolean> e : mensalidade.entrySet()) {
             if (e.getValue()) {
@@ -107,6 +110,9 @@ public class Caixa {
     }
 
     public List<Aluno> listarAlunosMensalidadeAtrasada() {
+        for (Aluno aluno : alunos) {
+            this.mensalidade.put(aluno.getMatricula(), verificarMensalidade(aluno.getMatricula()));
+        }
         List<Aluno> alunosMensalidadeAtrasada = new ArrayList<>();
         for (Map.Entry<Integer, Boolean> e : mensalidade.entrySet()) {
             if (!e.getValue()) {
