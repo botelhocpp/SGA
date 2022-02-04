@@ -75,6 +75,8 @@ public class AppSGA {
                bancoUsuarios = new GerenciadorUsuarios("database/Usuarios.bin");
                bancoEmpresa = new GerenciadorEmpresa("database/Empresa.bin");
                bancoAlunos = new GerenciadorAlunos("database/Aluno.bin");
+
+               caixa = new Caixa(bancoAlunos.listarAlunos(), bancoHistoricoCaixa.getHistoricoCaixa());
           } catch (IOException e) {
                System.out.println(e.getMessage());
           }
@@ -139,7 +141,7 @@ public class AppSGA {
           limparConsole();
           System.out.println("\t\033[1;94m------------------------------------------------------\033[0m\t");
           System.out.println("\t\033[1;93mSistema de Gerenciamento de Academias (SGA) versão 1.0\033[0m\t");
-          System.out.println("\t\033[1;94m------------------------------------------------------\033[0m\t");
+          System.out.println("\t\033[1;94m------------------------------------------------------\033[0m\t\n");
      }
 
      private static void esperarEnter() throws IOException {
@@ -155,9 +157,12 @@ public class AppSGA {
                          "2) Gerenciar Usuários\n" +
                          "3) Gerenciar Alunos\n" +
                          "4) Gerenciar Pagamentos\n" +
-                         "5) Sair\n> ");
-
-               switch (opcaoMenu = leitor.nextInt()) {
+                         "5) Dados da Empresa\n" +
+                         "6) Sair\n> ");
+                         
+               opcaoMenu = leitor.nextInt();
+               limparBuffer();           
+               switch (opcaoMenu) {
                     case 1:
                          menuEmpresa();
                          break;
@@ -171,6 +176,9 @@ public class AppSGA {
                          menuPagamentos();
                          break;
                     case 5:
+                         dadosEmpresa();
+                         break;
+                    case 6:
                          limparConsole();
                          System.out.println("Finalizando o Sistema. Aguarde...");
                          break;
@@ -179,7 +187,7 @@ public class AppSGA {
                          esperarEnter();
                }
 
-          } while (opcaoMenu != 5);
+          } while (opcaoMenu != 6);
      }
 
      private static void menuEmpresa() throws IOException {
@@ -198,7 +206,9 @@ public class AppSGA {
                          "4) Modificar o endereço da Empresa\n" +
                          "5) Retornar\n> ");
 
-               switch (opcaoMenu = leitor.nextInt()) {
+               opcaoMenu = leitor.nextInt();
+               limparBuffer();           
+               switch (opcaoMenu) {
                     case 1:
                          configurarNomeEmpresa();
                          break;
@@ -238,7 +248,9 @@ public class AppSGA {
                          "6) Remover um Usuário\n" +
                          "7) Retornar\n> ");
 
-               switch (opcaoMenu = leitor.nextInt()) {
+               opcaoMenu = leitor.nextInt();
+               limparBuffer();
+               switch (opcaoMenu) {
                     case 1:
                          criarUsuario();
                          break;
@@ -264,7 +276,7 @@ public class AppSGA {
                          esperarEnter();
                }
 
-          } while (opcaoMenu != 5);
+          } while (opcaoMenu != 7);
 
      }
 
@@ -278,9 +290,11 @@ public class AppSGA {
                          "4) Remover um Aluno\n" +
                          "5) Retornar\n> ");
 
-               switch (opcaoMenu = leitor.nextInt()) {
+               opcaoMenu = leitor.nextInt();
+               limparBuffer();
+               switch (opcaoMenu) {
                     case 1:
-                         // 
+                         adicionarAluno();
                          break;
                     case 2:
                          // Listar os Usuários
@@ -313,7 +327,9 @@ public class AppSGA {
                               "6) Buscar caixa por data\n" + 
                               "7) Retornar\n>");
 
-               switch (opcaoMenu = leitor.nextInt()) {
+               opcaoMenu = leitor.nextInt();
+               limparBuffer();           
+               switch (opcaoMenu) {
                     case 1:
                          abrirCaixaDoDia();
                          break;
@@ -422,7 +438,7 @@ public class AppSGA {
           while(true) {
                cabecalhoSGA();
                System.out.print("Esse usuário terá permissões de administrador? (S/N)\n> ");
-               permissaoAdministrador = leitor.next();
+               permissaoAdministrador = leitor.next().toUpperCase();
                if(permissaoAdministrador.isEmpty() || (!permissaoAdministrador.equals("S") && !permissaoAdministrador.equals("N"))) {
                     System.out.println("Escolha inválida!" +
                     "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
@@ -435,15 +451,19 @@ public class AppSGA {
                limparConsole();
                break;
           }
-          bancoUsuarios.criarUsuario(login, senha, (permissaoAdministrador == "S") ? true : false);
+
+          cabecalhoSGA();
+          bancoUsuarios.criarUsuario(login, senha, (permissaoAdministrador.equals("S")) ? true : false);
           System.out.println("O usuário foi criado!\nPressione \033[1;32mENTER\033[0m para continuar.");
           esperarEnter();
           limparConsole(); 
      }
 
      private static void listarUsuario() throws IOException {
+          cabecalhoSGA();
+          System.out.println("\033[1;32mLista de Usuários\033[0m:\n");
           bancoUsuarios.listarUsuario();
-          System.out.println("Pressione \033[1;32mENTER\033[0m para continuar.");
+          System.out.println("\nPressione \033[1;32mENTER\033[0m para continuar.");
           esperarEnter();
           limparConsole(); 
      }
@@ -571,7 +591,7 @@ public class AppSGA {
           while(true) {
                cabecalhoSGA();
                System.out.print("Esse usuário deverá ter permissões de administrador? (S/N)\n> ");
-               permissaoAdministrador = leitor.next();
+               permissaoAdministrador = leitor.next().toUpperCase();
                if(permissaoAdministrador.isEmpty() || (!permissaoAdministrador.equals("S") && !permissaoAdministrador.equals("N"))) {
                     System.out.println("Escolha inválida!" +
                     "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
@@ -586,7 +606,7 @@ public class AppSGA {
           }
           
           cabecalhoSGA();
-          if(bancoUsuarios.atualizarPermissao(id, (permissaoAdministrador == "S") ? true : false)) {
+          if(bancoUsuarios.atualizarPermissao(id, (permissaoAdministrador.equals("S")) ? true : false)) {
                System.out.println("O usuário foi atualizado!\nPressione \033[1;32mENTER\033[0m para continuar.");
           }
           else {
@@ -651,7 +671,7 @@ public class AppSGA {
           while(true) {
                try {
                     cabecalhoSGA();
-                    System.out.print("Insira o nome da sua academia:\n> ");
+                    System.out.print("Insira o novo nome da sua academia:\n> ");
                     bancoEmpresa.configurarNome(leitor.nextLine());
                     break;
                }
@@ -809,25 +829,57 @@ public class AppSGA {
           limparConsole(); 
      }
 
+     private static void dadosEmpresa() throws IOException {
+          cabecalhoSGA();
+          System.out.println("\033[1;32mInformações da Empresa\033[0m:\n");
+          System.out.println(bancoEmpresa.obterEmpresa());
+          System.out.println("\nPressione \033[1;32mENTER\033[0m para continuar.");
+          esperarEnter();
+          limparConsole(); 
+     }
+
+     // ------------------------------------------------------------------------
+     // Métodos de Configuração dos Alunos
+     // ------------------------------------------------------------------------]
+
+     private static void adicionarAluno() throws IOException {
+          
+     }
+
      // ------------------------------------------------------------------------
      // Métodos do Menu de Pagamentos
      // ------------------------------------------------------------------------
 
      private static void abrirCaixaDoDia() throws IOException {
-          caixa.abrirCaixa();
+          if (caixa.abrirCaixa()) {
+               System.out.println("Caixa aberto com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          } else {
+               System.out.println("Caixa já está aberto!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          }
           System.out.println("Caixa aberto com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
           esperarEnter();
           limparConsole(); 
      }
 
      private static void fecharCaixaDoDia() throws IOException {
-          caixa.fecharCaixa();
+          if (caixa.fecharCaixa()) {
+               System.out.println("Caixa fechado com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          } else {
+               System.out.println("Caixa já está fechado!\nPressione \033[1;32mENTER\033[0m para continuar.");
+          }
           System.out.println("Caixa fechado com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
           esperarEnter();
           limparConsole(); 
      }
 
      private static void fazerPagamentoAluno() throws IOException {
+          if (!caixa.obterEstadoCaixa()) {
+               System.out.println("Caixa está fechado!\nPressione \033[1;32mENTER\033[0m para voltar.");
+               esperarEnter();
+               limparConsole(); 
+               return;
+          }
+
           int matricula = 0;
           Double mensalidade;
           DateHelper dataAtual = new DateHelper(new Date());

@@ -40,6 +40,10 @@ public class GerenciadorHistoricoCaixa extends Gerenciador {
           }
      }
 
+     public Map<DateHelper, Double> getHistoricoCaixa() {
+          return this.historicoCaixa;
+     }
+
      @Override
      public void salvarDados() {
           try (

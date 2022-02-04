@@ -28,11 +28,10 @@ public class Empresa implements Serializable {
 
      @Override
      public String toString() {
-          return String.format("Informações da Empresa:%n" + 
-          "Nome: %s%n" + 
+          return String.format("Nome: %s%n" + 
           "CNPJ: %s%n" + 
           "E-mail: %s%n" + 
-          "Endereço: %s%n", 
+          "Endereço: %s", 
           this.nome, this.cnpj, this.email,
           this.endereco);
      }

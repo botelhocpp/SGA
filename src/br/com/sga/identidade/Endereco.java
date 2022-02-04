@@ -25,7 +25,7 @@ public class Endereco implements Serializable {
      
      @Override
      public String toString() {
-          return "Endereço: " + this.logradouro + ", N°" + this.numero + ", " + this.bairro + ", " + this.cidade + "-" + this.estado + "\nCEP: " + this.cep;
+          return this.logradouro + ", N°" + this.numero + ", " + this.bairro + ", " + this.cidade + "-" + this.estado + "\nCEP: " + this.cep;
      }
 
      // ------------------------------------------------------------------------

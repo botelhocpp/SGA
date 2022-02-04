@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-public class DateHelper {
+public class DateHelper implements Comparable<DateHelper> {
 
      SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -93,5 +93,10 @@ public class DateHelper {
       */
      public String toString() {
           return formatter.format(date);
+     }
+
+     @Override
+     public int compareTo(DateHelper o) {
+          return this.comparar(o.getDate());
      }
 }

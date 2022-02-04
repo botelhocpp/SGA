@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import br.com.sga.pessoal.Aluno;
@@ -72,8 +74,14 @@ public class GerenciadorAlunos extends Gerenciador {
           }
      }
 
-     public void listarAlunos() {
-          this.alunos.values().forEach(System.out::println);
+     public List<Aluno> listarAlunos() {
+          List<Aluno> alunosListar = new ArrayList<>();
+
+          for (Map.Entry<Integer, Aluno> e : alunos.entrySet()) {
+               alunosListar.add(obterAluno(e.getKey()));
+           }
+
+          return alunosListar;
      }
 
      public void atualizarAluno(Aluno aluno) {

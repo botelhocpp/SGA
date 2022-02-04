@@ -26,6 +26,7 @@ public class GerenciadorUsuarios extends Gerenciador {
                ObjectInputStream usuariosStream = new ObjectInputStream(arquivoUsuarios);
           )
           {
+               idIncremento = (Integer) usuariosStream.readObject();
                Usuario usuarioTemporario;
                while(true) {
                     try {
@@ -107,6 +108,7 @@ public class GerenciadorUsuarios extends Gerenciador {
                ObjectOutputStream usuariosStream = new ObjectOutputStream(arquivoUsuarios);
           )
           {
+               usuariosStream.writeObject(idIncremento);
                for(Usuario usuario : this.usuarios.values()) {
                     usuariosStream.writeObject(usuario);
                }
