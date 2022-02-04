@@ -40,7 +40,15 @@ public class Aluno extends Pessoa {
      @Override
      public String toString() {
           return String.format("Nome: %s%n" + 
-          "Matrícula: %s%n", this.nome, this.matricula);
+          "Telefone: %s%n" + 
+          "Sexo: %s%n" + 
+          "CPF: %s%n" + 
+          "Data de Nascimento: %s%n" +
+          "Endereço de E-mail: %s%n" +  
+          "Endereço: %s%n" +
+          "Matrícula: %s%n", this.nome,
+          this.telefone, this.sexo, this.cpf,
+          this.dataNascimento.toString(), this.email, this.endereco, this.matricula);
      }
 
      @Override

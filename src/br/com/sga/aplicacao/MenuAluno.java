@@ -25,9 +25,10 @@ public class MenuAluno {
                cabecalhoSGA();
                System.out.print("\033[1;94m1) \033[0;94mAdicionar um Aluno\033[0m\n" +
                          "\033[1;94m2) \033[0;94mListar os Alunos\033[0m\n" +
-                         "\033[1;94m3) \033[0;94mAtualizar um Aluno\033[0m\n" +
-                         "\033[1;94m4) \033[0;94mRemover um Aluno\033[0m\n" +
-                         "\033[1;94m5) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
+                         "\033[1;94m3) \033[0;Buscar Aluno por matrícula\033[0m\n" +
+                         "\033[1;94m4) \033[0;94mAtualizar um Aluno\033[0m\n" +
+                         "\033[1;94m5) \033[0;94mRemover um Aluno\033[0m\n" +
+                         "\033[1;94m6) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
 
                opcaoMenu = leitor.nextInt();
                limparBuffer();
@@ -39,19 +40,22 @@ public class MenuAluno {
                          listarAlunos();
                          break;
                     case 3:
+                         buscarAlunoMatricula();
+                         break;                         
+                    case 4:
                          atualizarAluno();
                          break;
-                    case 4:
+                    case 5:
                          removerAluno();
                          break;
-                    case 5:
+                    case 6:
                          break;
                     default:
                          System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
 
-          } while (opcaoMenu != 5);
+          } while (opcaoMenu != 6);
      }
 
      public static void adicionarAluno() throws IOException {
@@ -309,6 +313,32 @@ public class MenuAluno {
                System.out.println("- Nome: " + aluno.getNome() + ", Matrícula: " + aluno.getMatricula());
           }
           System.out.println("\nPressione \033[1;32mENTER\033[0m para voltar.");
+          esperarEnter();
+          limparConsole(); 
+     }
+
+     public static void buscarAlunoMatricula() throws IOException {
+          int matricula = 0;
+
+          Aluno aluno = null;
+
+          while(true) {
+               try {
+                    System.out.print("Insira o número da matrícula do Aluno:\n> ");
+                    matricula = leitor.nextInt();
+                    aluno = bancoAlunos.obterAluno(matricula);
+                    if (aluno == null) {
+                         throw new Exception("Aluno não existente");
+                    }
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+          }
+
+          System.out.println(aluno + "\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
      }
