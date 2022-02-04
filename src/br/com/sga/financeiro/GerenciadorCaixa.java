@@ -1,28 +1,30 @@
 package br.com.sga.financeiro;
 
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.Date;
 
 import br.com.sga.pessoal.Aluno;
 import br.com.sga.datehelper.DateHelper;
 
-public class Gerenciador {
-    private Map<Aluno, Boolean> mensalidade;
+public class GerenciadorCaixa {
+    private Map<Integer, Boolean> mensalidade;
     private List<Aluno> alunos;
 
-    public Gerenciador() {
-
+    public GerenciadorCaixa(List<Aluno> alunos) {
+        mensalidade = new TreeMap<>();
+        this.alunos = alunos;
     }
 
     public void caixaDiario() {
-        for (int index = 0; index < alunos.size(); index++) {
-            Aluno aluno = alunos.get(index);
-            mensalidade.put(aluno, verificarMensalidade(aluno.getMatricula()));
+        for (Aluno aluno : alunos) {
+            Integer matricula = aluno.getMatricula();
+            mensalidade.put(matricula, verificarMensalidade(matricula));
         }
     }
 
-    public Boolean verificarMensalidade(String matricula) {
+    public Boolean verificarMensalidade(Integer matricula) {
         Aluno aluno = getAluno(matricula);
         if (aluno.getPagamentos().size() == 0) {
             return false;
@@ -42,25 +44,23 @@ public class Gerenciador {
         alunos.add(aluno);
     }
 
-    public Aluno removerAluno(String matricula) {
+    public Aluno removerAluno(Integer matricula) {
         Aluno aluno = getAluno(matricula);
         alunos.remove(aluno);
         return aluno;
     }
 
-    public Aluno getAluno(String matricula) {
-        Aluno aluno = null;
+    public Aluno getAluno(Integer matricula) {
         for (int index = 0; index < alunos.size(); index++) {
             if (alunos.get(index).getMatricula().equals(matricula)) {
-                aluno = alunos.get(index);
-                break;
+                return alunos.get(index);
             }
         }
-        return aluno;
+        return null;
     }
 
-    public List<Aluno> getAlunos() {
-        return alunos;
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Gerenciador {
             ret += aluno;
             cnt++;
             if (cnt != alunos.size()) {
-                ret += ",\n";
+                ret += "\n";
             }
         }
 

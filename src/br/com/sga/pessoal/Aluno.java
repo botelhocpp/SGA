@@ -7,10 +7,10 @@ import br.com.sga.identidade.Endereco;
 import br.com.sga.financeiro.Pagamento;
 
 public class Aluno extends Pessoa {
-     private String matricula;
+     private Integer matricula;
      private List<Pagamento> pagamentos;
 
-     public Aluno(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco, String matricula) {
+     public Aluno(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco, Integer matricula) {
           super(nome, telefone, sexo, cpf, dataNascimento, email, endereco);
           this.pagamentos = new ArrayList<>();
           this.matricula = matricula;
@@ -24,16 +24,12 @@ public class Aluno extends Pessoa {
           pagamentos.add(pagamento);
      }
 
-     public String getMatricula() {
+     public Integer getMatricula() {
           return this.matricula;
      }
 
-     public void setMatricula(String matricula) {
-          if (matricula == null || matricula.isEmpty()) {
-               throw new IllegalArgumentException("Matrícula inválida!");
-          } else {
-               this.matricula = matricula;
-          }
+     public void setMatricula(Integer matricula) {
+          this.matricula = matricula;
      }
 
      @Override
