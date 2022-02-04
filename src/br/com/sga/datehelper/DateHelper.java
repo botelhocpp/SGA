@@ -8,7 +8,7 @@ import java.text.ParseException;
 
 public class DateHelper implements Comparable<DateHelper> {
 
-     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+     SimpleDateFormat formatter;
 
      private GregorianCalendar gregorianCalendar;
      private Date date;
@@ -17,12 +17,15 @@ public class DateHelper implements Comparable<DateHelper> {
           this.gregorianCalendar = new GregorianCalendar();
           this.gregorianCalendar.setTime(date);
           this.date = date;
+          this.formatter = new SimpleDateFormat("dd/MM/yyyy");
      }
 
      public DateHelper(String date) {
+          this.formatter = new SimpleDateFormat("dd/MM/yyyy");
           try {
                this.gregorianCalendar = new GregorianCalendar();
                this.gregorianCalendar.setTime(formatter.parse(date));
+               this.date = this.gregorianCalendar.getTime();
           } catch (ParseException e) {
                System.out.println("Data informada inválida!");
           }

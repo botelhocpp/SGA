@@ -11,11 +11,13 @@ import java.io.StreamCorruptedException;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 import br.com.sga.pessoal.Aluno;
 import br.com.sga.pessoal.Sexo;
 import br.com.sga.identidade.Endereco;
+
+import br.com.sga.datehelper.DateHelper;
 
 public class GerenciadorAlunos extends Gerenciador {
 
@@ -24,17 +26,18 @@ public class GerenciadorAlunos extends Gerenciador {
 
      public GerenciadorAlunos(String caminhoBanco) throws IOException {
           super(caminhoBanco);
-          this.alunos = new TreeMap<>();
+          this.alunos = new HashMap<>();
 
           try (
                FileInputStream arquivoAlunos = new FileInputStream(caminhoBanco);
                ObjectInputStream alunosStream = new ObjectInputStream(arquivoAlunos);
           ) {
                Aluno alunoTemporario;
+               matriculaIncremento = (int) alunosStream.readObject();
                while (true) {
                     try {
                          alunoTemporario = (Aluno) alunosStream.readObject();
-                         alunos.put(alunoTemporario.getMatricula(), alunoTemporario);
+                         this.alunos.put(alunoTemporario.getMatricula(), alunoTemporario);
                     } catch (EOFException e) {
                          break;
                     }
@@ -56,7 +59,12 @@ public class GerenciadorAlunos extends Gerenciador {
           }
      }
 
-     public void criarAluno(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco) {
+     public void criarAluno(Aluno aluno) {
+          aluno.setMatricula(matriculaIncremento++);
+          this.alunos.put(aluno.getMatricula(), aluno);
+     }
+
+     public void criarAluno(String nome, String telefone, Sexo sexo, String cpf, DateHelper dataNascimento, String email, Endereco endereco) {
           Aluno novoAluno = new Aluno(nome, telefone, sexo, cpf, dataNascimento, email, endereco, matriculaIncremento++);
           this.alunos.put(novoAluno.getMatricula(), novoAluno);
      }
@@ -80,7 +88,7 @@ public class GerenciadorAlunos extends Gerenciador {
           List<Aluno> alunosListar = new ArrayList<>();
 
           for (Map.Entry<Integer, Aluno> e : alunos.entrySet()) {
-               alunosListar.add(obterAluno(e.getKey()));
+               alunosListar.add(e.getValue());
            }
 
           return alunosListar;
@@ -96,6 +104,7 @@ public class GerenciadorAlunos extends Gerenciador {
                FileOutputStream arquivoAlunos = new FileOutputStream(this.arquivoBanco);
                ObjectOutputStream alunosStream = new ObjectOutputStream(arquivoAlunos);
           ) {
+               alunosStream.writeObject(matriculaIncremento);
                for (Aluno aluno : this.alunos.values()) {
                     alunosStream.writeObject(aluno);
                }

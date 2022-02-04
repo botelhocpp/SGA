@@ -4,7 +4,9 @@ import br.com.sga.datehelper.DateHelper;
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.ValidacaoDadosPessoais;
 
-public abstract class Pessoa implements Comparable<Pessoa> {
+import java.io.Serializable;
+
+public abstract class Pessoa implements Comparable<Pessoa>, Serializable {
      protected String nome;
      protected String telefone;
      protected Sexo sexo;
@@ -17,7 +19,12 @@ public abstract class Pessoa implements Comparable<Pessoa> {
 
      }
 
-     public Pessoa(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco) {
+     @Override
+     public int hashCode() {
+          return this.nome.hashCode() + this.email.hashCode();
+     }
+
+     public Pessoa(String nome, String telefone, Sexo sexo, String cpf, DateHelper dataNascimento, String email, Endereco endereco) {
           this.setNome(nome);
           this.setTelefone(telefone);
           this.setSexo(sexo);
@@ -27,6 +34,7 @@ public abstract class Pessoa implements Comparable<Pessoa> {
           this.setEndereco(endereco);
      }
 
+     @Override
      public String toString() {
           return String.format("Nome: %s%n" + 
           "Telefone: %s%n" + 
@@ -103,11 +111,8 @@ public abstract class Pessoa implements Comparable<Pessoa> {
           this.cpf = cpf;
      }
 
-     public void setDataNascimento(String dataNascimento) throws IllegalArgumentException {
-          if(dataNascimento == null) {
-               throw new IllegalArgumentException("Informe uma data de nascimento!");
-          }
-          this.dataNascimento = new DateHelper(dataNascimento);
+     public void setDataNascimento(DateHelper dataNascimento) throws IllegalArgumentException {
+          this.dataNascimento = dataNascimento;
      }
 
      public void setEmail(String email) throws IllegalArgumentException {

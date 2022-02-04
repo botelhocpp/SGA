@@ -847,7 +847,7 @@ public class AppSGA {
      private static void adicionarAluno() throws IOException {
           Aluno aluno = new Aluno();
 
-          while(true) {
+          while (true) {
                try {
                     cabecalhoSGA();
                     System.out.print("Insira o nome do aluno:\n> ");
@@ -869,12 +869,12 @@ public class AppSGA {
                }
           }  
 
-          while(true) {
+          while (true) {
                try {
                     cabecalhoSGA();
                     System.out.print("Insira o telefone do aluno:\n> ");
                     aluno.setTelefone(leitor.nextLine());
-                    if(ValidacaoDadosPessoais.validarTelefone(aluno.getTelefone())) {
+                    if(!ValidacaoDadosPessoais.validarTelefone(aluno.getTelefone())) {
                          System.out.println("Telefone inválido!" +
                          "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
@@ -891,26 +891,26 @@ public class AppSGA {
                }
           }  
 
-          while(true) {
+          while (true) {
                try {
                     cabecalhoSGA();
-                    System.out.print("Insira o sexo do aluno (1 - Feminino, 2 - Masculino, 3 - Outro):\n> ");
-                    int numeroSexo = leitor.nextInt();
-                    if(numeroSexo != 1 && numeroSexo != 2 && numeroSexo != 3) {
+                    System.out.print("Insira o sexo do aluno (F - Feminino, M - Masculino, O - Outro):\n> ");
+                    String letra = leitor.nextLine();
+                    if(!letra.equals("F") && !letra.equals("M") && !letra.equals("O")) {
                          System.out.println("Dígito inválido! Deve digitar 1, 2 ou 3!" +
                          "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
                          limparConsole();
                          continue;
                     }
-                    switch (numeroSexo) {
-                         case 1:
+                    switch (letra) {
+                         case "M":
                               aluno.setSexo(Sexo.MASCULINO);
                               break;
-                         case 2;
+                         case "F":
                               aluno.setSexo(Sexo.FEMININO);
                               break;
-                         case 3:
+                         case "O":
                               aluno.setSexo(Sexo.OUTRO);
                               break;
                     }
@@ -925,13 +925,13 @@ public class AppSGA {
           } 
 
 
-          while(true) {
+          while (true) {
                try {
                     cabecalhoSGA();
-                    System.out.print("Insira o cpf do aluno:\n> ");
-                    aluno.setTelefone(leitor.nextLine());
-                    if(ValidacaoDadosPessoais.validarTelefone(aluno.getTelefone())) {
-                         System.out.println("Telefone inválido!" +
+                    System.out.print("Insira o CPF do aluno:\n> ");
+                    aluno.setCpf(leitor.nextLine());
+                    if(!ValidacaoDadosPessoais.validarRegistroNacional(aluno.getCpf())) {
+                         System.out.println("CPF inválido!" +
                          "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
                          limparConsole();
@@ -947,20 +947,157 @@ public class AppSGA {
                }
           }
 
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira a data de nascimento no seguinte formato (dd/MM/aaaa):\n> ");
+                    aluno.setDataNascimento(new DateHelper(leitor.nextLine()));
+                    limparConsole();
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println("Data em formato inválido! Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+                    limparConsole();
+               }
+          }
+
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira o e-mail do aluno:\n> ");
+                    aluno.setEmail(leitor.nextLine());
+                    if(!ValidacaoDadosPessoais.validarEmail(aluno.getEmail())) {
+                         System.out.println("E-mail inválido!" +
+                         "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
+                         esperarEnter();
+                         limparConsole();
+                         continue;
+                    }
+                    limparConsole();
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+                    limparConsole();
+               }
+          }  
+
+          aluno.setEndereco(new Endereco());
+
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Informe qual o logradouro:\n> ");
+                    aluno.getEndereco().setLogradouro(leitor.nextLine());
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+               finally {
+                    limparConsole(); 
+               }
+          }
+
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Informe o número (sem letras adjacentes):\n> ");
+                    aluno.getEndereco().setNumero(leitor.nextInt());
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+               finally {
+                    limparBuffer();
+                    limparConsole(); 
+               }
+          }
+
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Informe o Bairro:\n> ");
+                    aluno.getEndereco().setBairro(leitor.nextLine());
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+               finally {
+                    limparConsole(); 
+               }
+          }
+
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Informe a Cidade:\n> ");
+                    aluno.getEndereco().setCidade(leitor.nextLine());
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+               finally {
+                    limparConsole(); 
+               } 
+          }
+
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Informe o Estado (apenas a sigla):\n> ");
+                    aluno.getEndereco().setEstado(Estado.valueOf(leitor.nextLine().toUpperCase()));
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println("Informe uma sigla de estado válida!\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+               finally {
+                    limparConsole(); 
+               } 
+          }
+
+          while (true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Informe o CEP:\n> ");
+                    aluno.getEndereco().setCep(leitor.next());
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+               finally {
+                    limparBuffer();
+                    limparConsole(); 
+               }
+          }
+
           cabecalhoSGA();
+          bancoAlunos.criarAluno(aluno);
           System.out.println("O aluno foi criado com sucesso!\nPressione \033[1;32mENTER\033[0m para continuar.");
           esperarEnter();
           limparConsole(); 
      }
 
      private static void listarAlunos() throws IOException {
+          cabecalhoSGA();
           List<Aluno> alunosListar = bancoAlunos.listarAlunos();
           System.out.println("Alunos:");
           for (Aluno aluno : alunosListar) {
-               System.out.println("- Matrícula: " + aluno.getMatricula() + ", Nome: " + aluno.getNome());
+               System.out.println(aluno);
           }
-          limparConsole();
-          cabecalhoSGA();
           System.out.println("Pressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
@@ -1119,6 +1256,7 @@ public class AppSGA {
                     cabecalhoSGA();
                     System.out.print("Insira uma data no seguinte formato (dd/MM/aaaa):\n> ");
                     data = new DateHelper(leitor.nextLine());
+                    limparConsole();
                     break;
                }
                catch (Exception e) {
@@ -1127,12 +1265,11 @@ public class AppSGA {
                     limparConsole();
                }
           }
-
-          limparConsole();
+          
           cabecalhoSGA();
           DecimalFormat decimalFormat = new DecimalFormat("##.##");
           Double saldoDiario = caixa.buscarCaixaPorData(data);
-          System.out.println("Saldo diário:" + decimalFormat.format(saldoDiario) + "!\nPressione \033[1;32mENTER\033[0m para voltar.");
+          System.out.println("Saldo diário:" + decimalFormat.format(saldoDiario) + ".\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole();
      }

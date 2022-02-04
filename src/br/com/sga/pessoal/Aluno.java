@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import br.com.sga.identidade.Endereco;
 import br.com.sga.financeiro.Pagamento;
+import br.com.sga.datehelper.DateHelper;
 
 public class Aluno extends Pessoa {
      private Integer matricula;
@@ -14,7 +15,7 @@ public class Aluno extends Pessoa {
           this.pagamentos = new ArrayList<>();
      }
 
-     public Aluno(String nome, String telefone, Sexo sexo, String cpf, String dataNascimento, String email, Endereco endereco, Integer matricula) {
+     public Aluno(String nome, String telefone, Sexo sexo, String cpf, DateHelper dataNascimento, String email, Endereco endereco, Integer matricula) {
           super(nome, telefone, sexo, cpf, dataNascimento, email, endereco);
           this.pagamentos = new ArrayList<>();
           this.matricula = matricula;
@@ -34,6 +35,20 @@ public class Aluno extends Pessoa {
 
      public void setMatricula(Integer matricula) {
           this.matricula = matricula;
+     }
+
+     @Override
+     public String toString() {
+          return String.format("Nome: %s%n" + 
+          "Telefone: %s%n" + 
+          "Sexo: %s%n" + 
+          "CPF: %s%n" + 
+          "Data de Nascimento: %s%n" +
+          "Endereço de E-mail: %s%n" +  
+          "Endereço: %s%n" +
+          "Matrícula: %s%n", this.nome,
+          this.telefone, this.sexo, this.cpf,
+          this.dataNascimento.toString(), this.email, this.endereco, this.matricula);
      }
 
      @Override
