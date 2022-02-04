@@ -9,43 +9,91 @@ skinparam classAttributeIconSize 0
 package br.com.sga.datehelper <<Folder>> {
 
      class DateHelper {
-          
+          formatter : SimpleDateFormat
+          -gregorianCalendar : GregorianCalendar
+          -date : Date 
      }
 }
 
 package br.com.sga.empresa <<Folder>> {
      class Empresa {
-          
+          -nome : String
+          -cnpj : String
+          -email : String
+          -endereco : Endereco 
      }
 
      class Usuario {
-
+          -id : int
+          -login : String
+          -senha : String
+          -administrador : boolean
      }
 }
 
 package br.com.sga.financeiro <<Folder>> {
 
      class Caixa {
-          
+          -mensalidade : Map<Integer, Boolean>
+          -historicoCaixa : Map<DateHelper, Double>
+          -alunos : List<Aluno>
+          -dataAtual : DateHelper
+          -caixaAtual : Double
+          -caixaAberto : Boolean
      }
 
      class Pagamento {
-
+          -dataPagamento : DateHelper
+          -mensalidade : Double
      }
 }
 
 package br.com.sga.identidade <<Folder>> {
 
      class Endereco {
-
+          -logradouro : String
+          -numero : int
+          -String bairro : String
+          -String cidade : String
+          -estado : Estado
+          -String cep : String
      }
 
      enum Estado {
-
+          AC
+          AL
+          AP
+          AM
+          BA
+          CE
+          DF
+          ES
+          GO
+          MA
+          MT
+          MS
+          MG
+          PA
+          PB
+          PR
+          PE
+          PI
+          RJ
+          RN
+          RS
+          RO
+          RR
+          SC
+          SP
+          SE
+          TO
      }
 
      class ValidacaoDadosPessoais {
-
+          +validarRegistroNacional() : boolean
+          +validarEmail() : boolean
+          +validarCep() : boolean
+          +validarIdentificador() : boolean
      }
 
 }
@@ -53,23 +101,34 @@ package br.com.sga.identidade <<Folder>> {
 package br.com.sga.persistencia <<Folder>> {
 
      abstract class Gerenciador {
-
+          #arquivoBanco : String
+          +Gerenciador(caminhoBanco : String)
+          +{abstract}salvarDados()
      }
 
      class GerenciadorAlunos {
-
+          -{static}matriculaIncremento : int
+          -alunos : Map<Integer, Aluno>
+          +criarAluno(aluno : Aluno)
+          +obterAluno(matricula : Integer)
+          +removerAluno(matricula : Integer)
+          +listarAlunos() : List<Aluno>
+          +listarMensalidadesPorAluno(matricula : int) : List<Pagamento>
+          +atualizarAluno(aluno : Aluno) : boolean
      }
 
      class GerenciadorEmpresa {
-
+          -academia : Empresa
      }
 
      class GerenciadorHistoricoCaixa {
-
+          -historicoCaixa : Map<DateHelper, Double>
+          +getHistoricoCaixa() : Map<DateHelper, Double>
      }
 
      class GerenciadorUsuarios {
-
+          -{static}idIncremento : int
+          -usuarios : Map<Integer, Usuario>
      }
 
 }
@@ -77,15 +136,24 @@ package br.com.sga.persistencia <<Folder>> {
 package br.com.sga.pessoal <<Folder>> {
 
      abstract class Pessoa <<Comparable>> {
-
+          #nome : String
+          #String telefone : String
+          #sexo : Sexo
+          #String cpf : String
+          #dataNascimento : DateHelper
+          #String email : String
+          #endereco : Endereco
      }
 
      class Aluno extends Pessoa {
-
+          -matricula : int
+          -pagamentos : List<Pagamento>
      }
 
      enum Sexo {
-
+          MASCULINO
+          FEMININO
+          OUTRO
      }
 }
 
