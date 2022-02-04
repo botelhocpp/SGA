@@ -10,6 +10,7 @@ import static br.com.sga.aplicacao.AppSGA.limparConsole;
 import java.io.IOException;
 import java.util.List;
 
+import br.com.sga.financeiro.Pagamento;
 import br.com.sga.datehelper.DateHelper;
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.Estado;
@@ -26,9 +27,10 @@ public class MenuAluno {
                System.out.print("\033[1;94m1) \033[0;94mAdicionar um Aluno\033[0m\n" +
                          "\033[1;94m2) \033[0;94mListar os Alunos\033[0m\n" +
                          "\033[1;94m3) \033[0;94mBuscar Aluno por matrícula\033[0m\n" +
-                         "\033[1;94m4) \033[0;94mAtualizar um Aluno\033[0m\n" +
-                         "\033[1;94m5) \033[0;94mRemover um Aluno\033[0m\n" +
-                         "\033[1;94m6) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
+                         "\033[1;94m4) \033[0;94mListar mensalidades pagas por aluno\033[0m\n" +
+                         "\033[1;94m5) \033[0;94mAtualizar um Aluno\033[0m\n" +
+                         "\033[1;94m6) \033[0;94mRemover um Aluno\033[0m\n" +
+                         "\033[1;94m7) \033[0;94mRetornar\n\033[1;97m>\033[0m ");
 
                opcaoMenu = leitor.nextInt();
                limparBuffer();
@@ -41,21 +43,24 @@ public class MenuAluno {
                          break;
                     case 3:
                          buscarAlunoMatricula();
-                         break;                         
+                         break;
                     case 4:
+                         listarMensalidadesPagas();
+                         break;                         
+                    case 5:
                          atualizarAluno();
                          break;
-                    case 5:
+                    case 6:
                          removerAluno();
                          break;
-                    case 6:
+                    case 7:
                          break;
                     default:
                          System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
 
-          } while (opcaoMenu != 6);
+          } while (opcaoMenu != 7);
      }
 
      public static void adicionarAluno() throws IOException {
@@ -323,7 +328,6 @@ public class MenuAluno {
 
           while(true) {
                try {
-                    limparConsole();
                     cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
@@ -346,6 +350,42 @@ public class MenuAluno {
           }
 
           cabecalhoSGA();
+          System.out.println(aluno + "\nPressione \033[1;32mENTER\033[0m para voltar.");
+          esperarEnter();
+          limparConsole(); 
+     }
+
+     public static void listarMensalidadesPagas() throws IOException {
+          int matricula = 0;
+
+          Aluno aluno = null;
+
+          while(true) {
+               try {
+                    cabecalhoSGA();
+                    System.out.print("Insira o número da matrícula do Aluno:\n> ");
+                    matricula = leitor.nextInt();
+                    aluno = bancoAlunos.obterAluno(matricula);
+                    if (aluno == null) {
+                         throw new Exception("Aluno não existente");
+                    }
+                    break;
+               }
+               catch (Exception e) {
+                    System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
+                    esperarEnter();
+               }
+               finally {
+                    limparBuffer();
+               }
+          }
+
+          List<Pagamento> mensalidadesPagas = aluno.getPagamentos();
+
+          System.out.println("Aluno: " + aluno.getNome());
+          for (Pagamento pagamento : mensalidadesPagas) {
+               System.out.println(pagamento);
+          }
           System.out.println(aluno + "\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
@@ -435,7 +475,6 @@ public class MenuAluno {
                     cabecalhoSGA();
                     System.out.print("Insira o novo sexo do aluno (F - Feminino, M - Masculino, O - Outro). Dê ENTER caso não deseje alterar:\n> ");
                     String letra = leitor.nextLine().toUpperCase();
-                    limparBuffer();
                     if (letra.isEmpty()) {
                          limparConsole();
                          break;
@@ -686,8 +725,10 @@ public class MenuAluno {
 
           while(true) {
                try {
+                    cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
+                    limparBuffer();
                     Aluno aluno = bancoAlunos.obterAluno(matricula);
                     if (aluno == null) {
                          throw new Exception("Aluno não existente");

@@ -19,6 +19,8 @@ import br.com.sga.identidade.Endereco;
 
 import br.com.sga.datehelper.DateHelper;
 
+import br.com.sga.financeiro.Pagamento;
+
 public class GerenciadorAlunos extends Gerenciador {
 
      private static int matriculaIncremento = 1;
@@ -94,6 +96,10 @@ public class GerenciadorAlunos extends Gerenciador {
 
           return alunosListar;
      }
+
+    public List<Pagamento> listarMensalidadesPorAluno(int matricula) {
+        return obterAluno(matricula).getPagamentos();
+    }
 
      public boolean atualizarAluno(Aluno aluno) {
           Aluno aluno_anterior = obterAluno(aluno.getMatricula());

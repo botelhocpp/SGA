@@ -24,6 +24,10 @@ public class Pagamento implements Comparable<Pagamento>, Serializable {
     return this.mensalidade;
   }
 
+  @Override
+  public String toString() {
+    return "[" + this.mensalidade + ", " + this.dataPagamento.toString() + "]";
+  }
 
   @Override
   public int compareTo(Pagamento other) {
