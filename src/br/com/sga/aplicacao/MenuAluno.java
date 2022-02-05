@@ -408,10 +408,11 @@ public class MenuAluno {
                     cabecalhoSGA();
                     System.out.print("Insira o número da matrícula do Aluno:\n> ");
                     matricula = leitor.nextInt();
-                    aluno = bancoAlunos.obterAluno(matricula);
-                    if (aluno == null) {
+                    Aluno alunoAuxiliar = bancoAlunos.obterAluno(matricula);
+                    if (alunoAuxiliar == null) {
                          throw new Exception("Aluno não existente");
                     }
+                    aluno = (Aluno) alunoAuxiliar.clone();
                     break;
                }
                catch (Exception e) {
@@ -587,7 +588,7 @@ public class MenuAluno {
                }
           }  
 
-          aluno.setEndereco(new Endereco());
+          Endereco end = aluno.getEndereco();
 
           while (true) {
                try {
@@ -598,7 +599,7 @@ public class MenuAluno {
                          limparConsole();
                          break;
                     }
-                    aluno.getEndereco().setLogradouro(novo_logradouro);
+                    end.setLogradouro(novo_logradouro);
                     break;
                }
                catch (Exception e) {
@@ -619,7 +620,7 @@ public class MenuAluno {
                          limparConsole();
                          break;
                     }
-                    aluno.getEndereco().setNumero(novo_numero);
+                    end.setNumero(novo_numero);
                     break;
                }
                catch (Exception e) {
@@ -641,7 +642,7 @@ public class MenuAluno {
                          limparConsole();
                          break;
                     }
-                    aluno.getEndereco().setBairro(novo_bairro);
+                    end.setBairro(novo_bairro);
                     break;
                }
                catch (Exception e) {
@@ -662,7 +663,7 @@ public class MenuAluno {
                          limparConsole();
                          break;
                     }
-                    aluno.getEndereco().setCidade(nova_cidade);
+                    end.setCidade(nova_cidade);
                     break;
                }
                catch (Exception e) {
@@ -683,7 +684,7 @@ public class MenuAluno {
                          limparConsole();
                          break;     
                     }
-                    aluno.getEndereco().setEstado(Estado.valueOf(novo_estado.toUpperCase()));
+                    end.setEstado(Estado.valueOf(novo_estado.toUpperCase()));
                     break;
                }
                catch (Exception e) {
@@ -704,7 +705,7 @@ public class MenuAluno {
                          limparConsole();
                          break;
                     }
-                    aluno.getEndereco().setCep(novo_cep);
+                    end.setCep(novo_cep);
                     break;
                }
                catch (Exception e) {
@@ -715,6 +716,8 @@ public class MenuAluno {
                     limparConsole(); 
                }
           }
+
+          aluno.setEndereco(end);
 
           cabecalhoSGA();
           if (bancoAlunos.atualizarAluno(aluno)) {

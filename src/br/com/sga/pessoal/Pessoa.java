@@ -6,7 +6,9 @@ import br.com.sga.datehelper.DateHelper;
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.ValidacaoDadosPessoais;
 
-public abstract class Pessoa implements Comparable<Pessoa>, Serializable {
+import java.lang.Cloneable;
+
+public abstract class Pessoa implements Comparable<Pessoa>, Serializable, Cloneable {
      protected String nome;
      protected String telefone;
      protected Sexo sexo;
@@ -14,6 +16,11 @@ public abstract class Pessoa implements Comparable<Pessoa>, Serializable {
      protected DateHelper dataNascimento;
      protected String email;
      protected Endereco endereco;
+
+     @Override
+     public Pessoa clone() throws CloneNotSupportedException {
+         return (Pessoa) super.clone();
+     }
 
      public Pessoa() {}
 
