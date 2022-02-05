@@ -22,7 +22,7 @@ public class Aluno extends Pessoa {
      }
 
      public void adicionarPagamento(Pagamento pagamento) {
-          pagamentos.add(pagamento);
+          this.pagamentos.add(pagamento);
      }
 
      public List<Pagamento> getPagamentos() {

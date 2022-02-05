@@ -10,8 +10,7 @@ import java.io.Serializable;
 
 public class DateHelper implements Comparable<DateHelper>, Serializable {
 
-     SimpleDateFormat formatter;
-
+     private SimpleDateFormat formatter;
      private GregorianCalendar gregorianCalendar;
      private Date date;
 

@@ -139,7 +139,6 @@ public class Caixa {
         return ret;
     }
 
-    // private Map<DateHelper, Double> historicoCaixa;
     public String listarCaixa() {
         StringBuilder acc = new StringBuilder();
         for(Map.Entry<DateHelper, Double> entrada : this.historicoCaixa.entrySet()) {

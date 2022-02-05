@@ -174,6 +174,7 @@ public class AppSGA {
                     case 6:
                          cabecalhoSGA();
                          System.out.println("Finalizando o Sistema. Aguarde...");
+                         caixa.fecharCaixa();
                          break;
                     default:
                          System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
