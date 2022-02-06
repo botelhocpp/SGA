@@ -1,6 +1,5 @@
 package br.com.sga.aplicacao;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -42,16 +41,6 @@ public class AppSGA {
       * Inicia a aplicação!
       */
      public static void main(String[] args) {
-
-          /**
-           * Verifica se a pasta database/ existe. Se não existir, cria uma.
-           * Isso evita erros como não achar a localização dos arquivos do
-           * banco na sua criação, nas inicialização.
-           */
-          File diretorioBackup = new File("database/");
-          if(!diretorioBackup.exists()) {
-               diretorioBackup.mkdirs();
-          }
 
           // Inicializa todos os gerenciadores de bancos.
           inicializarBancos();
