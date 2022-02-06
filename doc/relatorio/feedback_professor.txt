@@ -1,0 +1,53 @@
+** O relatório está bem estruturado e o diagrama ficou ótimo visualmente.
+
+** O sistema parace ser simples, mas vai dar um pouquinho de trabalho pois parece
+que haverão interfaces (menus) distintos dependendo do tipo de usuário que estiver
+usando. Acho que tem pelo menos três usuários distintos: Administrador (que gerenciará
+CRUD e pagamentos dos funcionários da empresa), Instrutor (que poderá acessar o sistema
+para ver dados do aluno ou incluir um treino) e, talvez, um Atendente (que deve ficar no
+caixa recebendo pagamentos, etc). Acho que mais do que isso não tem de usuário. No próximo
+relatório, deixem claro quem serão os usuários e quais são as operações que cada um poderá
+fazer no sistema.
+
+** Eu falei de treino no item acima, mas não sei se vocês vão incluir essa
+possibilidade.
+
+** Eu vi que tem vários tipos de funcionário e eles são distinguidos não pelo
+mecanismo de herança, mas sim pelo atributo "cargo" de um tipo enumerado chamado
+"Cargo". Isso vai simplificar ainda mais a implementação. Eu achei bom, mas tem
+um detalhe: os salários dos diversos funcionários pode variar. Então, façam a
+classe enum Cargo com um atributo "salario" do tipo double, que vai atrelar um
+valor a cada uma das constantes. Eu fiz algo similar nas aulas de enums.
+
+** Aluno está relacionado por meio de uma composição com a classe GerenciadorAlunos.
+Vocês não acham que esse relacionamento é forte demais? Eu não tenho certeza também,
+vai depender do que vocês estão planejando fazer. A mesma coisa acontece entre a
+classe Funcionario e a classe GerenciadorFuncionarios. Na verdade, as classes do
+o pacote br.com.sga.financeiro paracem muito com classes "controladoras", classes
+que farão a conexão entre o Model e o View.
+
+** Sobre essa coisa do pagamento eu confesso que não entendi como será feita.
+Algumas academias oferencem planos distintos aos alunos. Dependendo do tipo de
+plano, um aluno pode pagar um valor de mensalidade diferente de outro aluno.
+Nesta frase anterior, eu indentifico a classe "Mensalidade" e possivelmente
+uma classe enum "TIPO_DE_PLANO" (mensal, anual, premium, etc.). Uma outra
+possibilidade seria não ter classe Mensalidade, mas apenas o enum "TIPO_DE_PLANO"
+que estaria atrelado ao Aluno. Dependendo do tipo de plano do aluno ele paga um
+dado valor naquele mês. Pensem um pouco sobre isso que falei e vejam se faz sentido.
+
+** Ainda sobre as classes GerenciadorAlunos e GerenciadorFuncionarios eu não
+entendi os atributos dessas duas classes. Elas servem para saber se o aluno pagou
+a mensalidade no mês atual? E se o funcionário foi pago no mês atual?
+
+** Sobre o atributo historicoMensalidade da classe Aluno, eu tenho uma pergunta:
+Se eu quiser saber se um aluno pagou a mensalidade de janeiro, eu teria que saber
+a data exata do pagamento para poder passar essa data pro map e ele me dar o valor
+do pagamento? Eu também vejo outras questões aqui: um aluno pode mudar de plano,
+a mensalidade pode aumentar. Então seria legal no histórico de mensalidades esses
+dados aparecerem também. Isso implicaria incluir mais classes. Essa sugestão deixo
+para vocês pensarem, mas não é algo obrigatório a ser feito.
+
+** Vocês podem inicialmente gerenciar apenas os estudantes da academia. Isso mudaria
+o plano inicial. Aí teria um usuário, que poderia ser também administrador do sistema.
+Pelo que eu me lembro vocês queriam administrar o pagamento do pessoal. Poderia ser
+um sistema para gerenciar apenas os estudantes, suas mensalidades e os treinos.

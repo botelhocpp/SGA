@@ -1,5 +1,13 @@
 package br.com.sga.pessoal;
 
+/**
+ * Encapsula os sexos de uma pessoa.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public enum Sexo {
      MASCULINO("Masculino"),
      FEMININO("Feminino"),

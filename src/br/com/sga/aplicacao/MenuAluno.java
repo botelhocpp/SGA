@@ -8,7 +8,6 @@ import static br.com.sga.aplicacao.AppSGA.limparBuffer;
 import static br.com.sga.aplicacao.AppSGA.limparConsole;
 import static br.com.sga.aplicacao.AppSGA.caixa;
 
-import java.io.IOException;
 import java.util.List;
 
 import br.com.sga.financeiro.Pagamento;
@@ -19,9 +18,23 @@ import br.com.sga.identidade.ValidacaoDadosPessoais;
 import br.com.sga.pessoal.Aluno;
 import br.com.sga.pessoal.Sexo;
 
+/**
+ * <p>
+ * Métodos e atributos relativos a tela de gerenciamento dos alunos.
+ * </p>
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class MenuAluno {
 
-     public static void menuAluno() throws IOException {
+     /**
+      * Mostra o menu para a gerencia de alunos,
+      * para a realização do CRUD.
+      */
+     public static void menuAluno() {
           int opcaoMenu;
           do {
                cabecalhoSGA();
@@ -64,7 +77,11 @@ public class MenuAluno {
           } while (opcaoMenu != 7);
      }
 
-     public static void adicionarAluno() throws IOException {
+     /**
+      * Adiciona um aluno, pedindo ao usuário para 
+      * preencher suas informações.
+      */
+     public static void adicionarAluno() {
           Aluno aluno = new Aluno();
 
           while (true) {
@@ -73,19 +90,18 @@ public class MenuAluno {
                     System.out.print("Insira o nome do aluno:\n> ");
                     aluno.setNome(leitor.nextLine());
                     if(aluno.getNome().isEmpty()) {
+                         cabecalhoSGA();
                          System.out.println("Nome inválido! O nome do aluno deve ter no mínimo 1 caractere!" +
                          "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
-                         limparConsole();
                          continue;
                     }
-                    limparConsole();
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-                    limparConsole();
                }
           }  
 
@@ -95,19 +111,18 @@ public class MenuAluno {
                     System.out.print("Insira o telefone do aluno:\n> ");
                     aluno.setTelefone(leitor.nextLine());
                     if(!ValidacaoDadosPessoais.validarTelefone(aluno.getTelefone())) {
+                         cabecalhoSGA();
                          System.out.println("Telefone inválido!" +
                          "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
-                         limparConsole();
                          continue;
                     }
-                    limparConsole();
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-                    limparConsole();
                }
           }  
 
@@ -115,12 +130,11 @@ public class MenuAluno {
                try {
                     cabecalhoSGA();
                     System.out.print("Insira o sexo do aluno (F - Feminino, M - Masculino, O - Outro):\n> ");
-                    String letra = leitor.next().toUpperCase();
-                    limparBuffer();
+                    String letra = leitor.nextLine().toUpperCase();
                     if(!letra.equals("F") && !letra.equals("M") && !letra.equals("O")) {
+                         cabecalhoSGA();
                          System.out.println("Opção inválida! Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
-                         limparConsole();
                          continue;
                     }
                     switch (letra) {
@@ -134,13 +148,12 @@ public class MenuAluno {
                               aluno.setSexo(Sexo.OUTRO);
                               break;
                     }
-                    limparConsole();
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-                    limparConsole();
                }
           } 
 
@@ -151,19 +164,19 @@ public class MenuAluno {
                     System.out.print("Insira o CPF do aluno:\n> ");
                     aluno.setCpf(leitor.nextLine());
                     if(!ValidacaoDadosPessoais.validarRegistroNacional(aluno.getCpf())) {
+                         cabecalhoSGA();
                          System.out.println("CPF inválido!" +
                          "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
                          limparConsole();
                          continue;
                     }
-                    limparConsole();
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-                    limparConsole();
                }
           }
 
@@ -172,13 +185,12 @@ public class MenuAluno {
                     cabecalhoSGA();
                     System.out.print("Insira a data de nascimento no seguinte formato (dd/MM/aaaa):\n> ");
                     aluno.setDataNascimento(new DateHelper(leitor.nextLine()));
-                    limparConsole();
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println("Data em formato inválido! Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-                    limparConsole();
                }
           }
 
@@ -188,19 +200,19 @@ public class MenuAluno {
                     System.out.print("Insira o e-mail do aluno:\n> ");
                     aluno.setEmail(leitor.nextLine());
                     if(!ValidacaoDadosPessoais.validarEmail(aluno.getEmail())) {
+                         cabecalhoSGA();
                          System.out.println("E-mail inválido!" +
                          "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                          esperarEnter();
                          limparConsole();
                          continue;
                     }
-                    limparConsole();
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-                    limparConsole();
                }
           }  
 
@@ -214,11 +226,9 @@ public class MenuAluno {
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-               }
-               finally {
-                    limparConsole(); 
                }
           }
 
@@ -230,12 +240,12 @@ public class MenuAluno {
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
                }
                finally {
                     limparBuffer();
-                    limparConsole(); 
                }
           }
 
@@ -247,11 +257,9 @@ public class MenuAluno {
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-               }
-               finally {
-                    limparConsole(); 
                }
           }
 
@@ -263,12 +271,10 @@ public class MenuAluno {
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
                }
-               finally {
-                    limparConsole(); 
-               } 
           }
 
           while (true) {
@@ -279,28 +285,23 @@ public class MenuAluno {
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println("Informe uma sigla de estado válida!\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
                }
-               finally {
-                    limparConsole(); 
-               } 
           }
 
           while (true) {
                try {
                     cabecalhoSGA();
                     System.out.print("Informe o CEP:\n> ");
-                    aluno.getEndereco().setCep(leitor.next());
+                    aluno.getEndereco().setCep(leitor.nextLine());
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
-               }
-               finally {
-                    limparBuffer();
-                    limparConsole(); 
                }
           }
 
@@ -312,7 +313,11 @@ public class MenuAluno {
           limparConsole(); 
      }
 
-     public static void listarAlunos() throws IOException {
+     /**
+      * Mostra todos os alunos cadastrados no sistema. Isto é,
+      * mostra o nome e a matrícula de todos os alunos.
+      */
+     public static void listarAlunos() {
           cabecalhoSGA();
           List<Aluno> alunosListar = bancoAlunos.listarAlunos();
           System.out.println("\033[1;32mLista de Alunos\033[0m:\n");
@@ -324,7 +329,11 @@ public class MenuAluno {
           limparConsole(); 
      }
 
-     public static void buscarAlunoMatricula() throws IOException {
+     /**
+      * Mostra todas as informações de um usuário de uma
+      * dada matrícula.
+      */
+     public static void buscarAlunoMatricula() {
           int matricula = 0;
           Aluno aluno = null;
 
@@ -335,11 +344,9 @@ public class MenuAluno {
                     matricula = leitor.nextInt();
                     aluno = bancoAlunos.obterAluno(matricula);
                     if (aluno == null) {
-                         limparConsole();
                          cabecalhoSGA();
                          throw new Exception("Aluno não existente\n");
                     }
-                    limparConsole();
                     break;
                }
                catch (Exception e) {
@@ -357,7 +364,10 @@ public class MenuAluno {
           limparConsole(); 
      }
 
-     public static void listarMensalidadesPagas() throws IOException {
+     /**
+      * Lista as mensalidades pagas pelo usuário requisitado.
+      */
+     public static void listarMensalidadesPagas() {
           int matricula = 0;
 
           Aluno aluno = null;
@@ -374,6 +384,7 @@ public class MenuAluno {
                     break;
                }
                catch (Exception e) {
+                    cabecalhoSGA();
                     System.out.println(e.getMessage() + " Pressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
                }
@@ -384,6 +395,7 @@ public class MenuAluno {
 
           List<Pagamento> mensalidadesPagas = aluno.getPagamentos();
 
+          cabecalhoSGA();
           System.out.println("Aluno: " + aluno.getNome());
           for (Pagamento pagamento : mensalidadesPagas) {
                System.out.println(pagamento);
@@ -398,7 +410,12 @@ public class MenuAluno {
           limparConsole(); 
      }
 
-     public static void atualizarAluno() throws IOException {
+     /**
+      * Atualiza os dados de um usuário. Caso não queira
+      * atualizar um certo campo é só clicar no ENTER com
+      * o campo vazio.
+      */
+     public static void atualizarAluno() {
           int matricula = 0;
 
           Aluno aluno = null;
@@ -730,7 +747,10 @@ public class MenuAluno {
           limparConsole(); 
      }
 
-     public static void removerAluno() throws IOException {
+     /**
+      * Remove um aluno de dada matrícula, caso exista.
+      */
+     public static void removerAluno() {
           int matricula = 0;
 
           while(true) {

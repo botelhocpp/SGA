@@ -3,6 +3,14 @@ package br.com.sga.financeiro;
 import br.com.sga.datehelper.DateHelper;
 import java.io.Serializable;
 
+/**
+ * Modela o pagamento utilizado pelo sistema.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class Pagamento implements Comparable<Pagamento>, Serializable {
   private DateHelper dataPagamento;
   private Double mensalidade;

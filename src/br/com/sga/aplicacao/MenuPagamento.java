@@ -8,7 +8,6 @@ import static br.com.sga.aplicacao.AppSGA.leitor;
 import static br.com.sga.aplicacao.AppSGA.limparBuffer;
 import static br.com.sga.aplicacao.AppSGA.limparConsole;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +16,23 @@ import br.com.sga.datehelper.DateHelper;
 import br.com.sga.financeiro.Pagamento;
 import br.com.sga.pessoal.Aluno;
 
+/**
+ * <p>
+ * Encapsula as operações relacionadas ao menu de configurações do sistema.
+ * </p>
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class MenuPagamento {
      
-     public static void menuPagamentos() throws IOException {
+     /**
+      * Mostra o menu para a gerencia do caixa
+      * e dos pagamentos dos alunos.
+      */
+     public static void menuPagamentos() {
           int opcaoMenu = 0;
           do {
                cabecalhoSGA();
@@ -62,7 +75,11 @@ public class MenuPagamento {
           } while (opcaoMenu != 7);
      }
 
-     public static void abrirCaixaDoDia() throws IOException {
+     /**
+      * Abre o caixa para que novas operações financeiras
+      * possam ser realizadas.
+      */
+     public static void abrirCaixaDoDia() {
           cabecalhoSGA();
           if (caixa.abrirCaixa()) {
                System.out.println("Caixa aberto com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
@@ -73,7 +90,12 @@ public class MenuPagamento {
           limparConsole(); 
      }
 
-     public static void fecharCaixaDoDia() throws IOException {
+     /**
+      * Fecha o caixa, de forma que novas operações financeiras
+      * só sejam possíveis ao abrir um novo caixa. Isso salva
+      * no histórico de caixas com a data corrente!
+      */
+     public static void fecharCaixaDoDia() {
           cabecalhoSGA();
           if (caixa.fecharCaixa()) {
                System.out.println("Caixa fechado com sucesso!\nPressione \033[1;32mENTER\033[0m para voltar.");
@@ -84,7 +106,11 @@ public class MenuPagamento {
           limparConsole(); 
      }
 
-     public static void fazerPagamentoAluno() throws IOException {
+     /**
+      * Realiza o pagamento da mensalidade do aluno, dado
+      * um valor. O aluno ficará em dias!
+      */
+     public static void fazerPagamentoAluno() {
           if (!caixa.obterEstadoCaixa()) {
                cabecalhoSGA();
                System.out.println("Caixa está fechado!\nPressione \033[1;32mENTER\033[0m para voltar.");
@@ -146,31 +172,42 @@ public class MenuPagamento {
           limparConsole(); 
      }
      
-     public static void listarAlunosMensalidadeEmDia() throws IOException {
+     /**
+      * Lista os alunos que estão com a mensalidade em
+      * dias.
+      */
+     public static void listarAlunosMensalidadeEmDia() {
           cabecalhoSGA();
           List<Aluno> alunosMensalidadeEmDia = caixa.listarAlunosMensalidadeEmDia();
-          System.out.println("Alunos com mensalidade em dia:");
+          System.out.println("Alunos com mensalidade em dia:\n");
           for (Aluno aluno : alunosMensalidadeEmDia) {
                System.out.println("- " + aluno.getNome());
           }
-          System.out.println("Pressione \033[1;32mENTER\033[0m para voltar.");
+          System.out.println("\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
      }
 
-     public static void listarAlunosMensalidadeAtrasada() throws IOException {
+     /**
+      * Lista os alunos que não estão com a mensalidade em
+      * dias.
+      */
+     public static void listarAlunosMensalidadeAtrasada() {
           cabecalhoSGA();
           List<Aluno> alunosMensalidadeAtrasada = caixa.listarAlunosMensalidadeAtrasada();
-          System.out.println("Alunos com mensalidade atrasada:");
+          System.out.println("Alunos com mensalidade atrasada:\n");
           for (Aluno aluno : alunosMensalidadeAtrasada) {
                System.out.println("- " + aluno.getNome());
           }
-          System.out.println("Pressione \033[1;32mENTER\033[0m para voltar.");
+          System.out.println("\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();
           limparConsole(); 
      }
 
-     public static void buscarSaldoDiarioPorData() throws IOException {
+     /**
+      * Procura o saldo do caixa baseado em uma data.
+      */
+     public static void buscarSaldoDiarioPorData() {
           DateHelper data;
           while(true) {
                try {
@@ -201,7 +238,10 @@ public class MenuPagamento {
           limparConsole();
      }
 
-     public static void listarCaixa() throws IOException {
+     /**
+      * Lista todos os caixas salvos no banco de dados.
+      */
+     public static void listarCaixa() {
           cabecalhoSGA();
           System.out.println(caixa.listarCaixa() + "\nPressione \033[1;32mENTER\033[0m para voltar.");
           esperarEnter();

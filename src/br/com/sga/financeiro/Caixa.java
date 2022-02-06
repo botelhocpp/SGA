@@ -9,14 +9,57 @@ import java.util.Date;
 import br.com.sga.pessoal.Aluno;
 import br.com.sga.datehelper.DateHelper;
 
+/**
+ * Modela o caixa do sistema, realizando o controle
+ * da parte monetária do sistema. O banco de dados
+ * comporta o histórico de caixas, porém esta classe
+ * é inicializada por meio de vários dados de vários
+ * objetos, sendo muito poderosa no controle do caixa!
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class Caixa {
+    /**
+     * Mapeia os números de matrículas dos alunos e informa se
+     * a mensalidade foi, ou não, paga.
+     */
     private Map<Integer, Boolean> mensalidade;
+
+    /**
+     * O histórico de valores pagos, mapeando uma data a um
+     * valor (referência externa)
+     */
     private Map<DateHelper, Double> historicoCaixa;
+
+    /**
+     * Lista dos alunos do sistema. (referência externa)
+     */
     private List<Aluno> alunos;
+
+    /**
+     * Data do caixa atual.
+     */
     private DateHelper dataAtual;
+
+    /**
+     * O montante atual do caixa, antes de ser fechado.
+     */
     private Double caixaAtual;
+
+    /**
+     * Informa se o caixa está, ou não, aberto.
+     */
     private Boolean caixaAberto;
 
+    /**
+     * Inicializa o caixa com referências externas.
+     * 
+     * @param alunos Referência à lista de alunos do sistema.
+     * @param historicoCaixa Referência ao mapeamento do histórico do caixa
+     */
     public Caixa(List<Aluno> alunos, Map<DateHelper, Double> historicoCaixa) {
         this.mensalidade = new TreeMap<>();
         this.historicoCaixa = historicoCaixa;
@@ -43,6 +86,9 @@ public class Caixa {
         return true;
     }
 
+    /**
+     * Faz o pagamento da mensalidade do usuário informado.
+     */
     public boolean fazerPagamento(int matricula, Pagamento pagamento) {
         if (!this.caixaAberto) return false;
         this.caixaAtual += pagamento.getMensalidade();
@@ -50,6 +96,10 @@ public class Caixa {
         return true;
     }
 
+    /**
+     * Verifica se a mensalidade do aluno informado
+     * está em dias. 
+     */
     public boolean verificarMensalidade(int matricula) {
         Aluno aluno = obterAluno(matricula);
         if (aluno.getPagamentos().size() == 0) {
@@ -67,6 +117,9 @@ public class Caixa {
         return (validadeMensalidade.comparar(hoje.getDate()) > 0  ? true : false);
     }
 
+    /**
+     * Adiciona um aluno informado ao sistema de caixa.
+     */
     public void adicionarAluno(Aluno aluno) {
         alunos.add(aluno);
         verificarMensalidade(aluno.getMatricula());
@@ -139,6 +192,9 @@ public class Caixa {
         return ret;
     }
 
+    /**
+     * Retorna uma string com todos os caixas salvos.
+     */
     public String listarCaixa() {
         StringBuilder acc = new StringBuilder();
         for(Map.Entry<DateHelper, Double> entrada : this.historicoCaixa.entrySet()) {

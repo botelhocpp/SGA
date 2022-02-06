@@ -8,6 +8,15 @@ import java.text.ParseException;
 
 import java.io.Serializable;
 
+/**
+ * Realiza a interface de datas entre outras
+ * classes de datas, facilitando a utilização.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class DateHelper implements Comparable<DateHelper>, Serializable {
 
      private SimpleDateFormat formatter;

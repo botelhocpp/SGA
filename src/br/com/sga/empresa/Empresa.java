@@ -5,6 +5,14 @@ import java.io.Serializable;
 import br.com.sga.identidade.*;
 import br.com.sga.identidade.excecoes.PessoaInvalidaException;
 
+/**
+ * Modela a empresa que é gerenciada pelo sistema.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class Empresa implements Serializable {
      private String nome;
      private String cnpj;

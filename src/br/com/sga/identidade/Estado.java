@@ -1,5 +1,14 @@
 package br.com.sga.identidade;
 
+/**
+ * Contém todas as siglas dos estados brasileiros, incluso
+ * o Distrito Federal.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public enum Estado {
      AC("AC"),
      AL("AL"),

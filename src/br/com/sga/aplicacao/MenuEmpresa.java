@@ -2,14 +2,26 @@ package br.com.sga.aplicacao;
 
 import static br.com.sga.aplicacao.AppSGA.*;
 
-import java.io.IOException;
-
 import br.com.sga.identidade.Endereco;
 import br.com.sga.identidade.Estado;
 
+/**
+ * <p>
+ * Encapsula as operações relacionadas ao menu de configurações do sistema.
+ * </p>
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class MenuEmpresa {
      
-     public static void menuEmpresa() throws IOException {
+     /**
+      * Mostra o menu para a gerencia da empresa,
+      * como alterar ou mostrar suas informações.
+      */
+     public static void menuEmpresa() {
           if (!usuarioAtual.isAdministrador()) {
                cabecalhoSGA();
                System.out.println("Você não tem permissão para acessar o menu da empresa!\nPressione \033[1;32mENTER\033[0m para continuar.");
@@ -19,38 +31,45 @@ public class MenuEmpresa {
           int opcaoMenu;
           do {
                cabecalhoSGA();
-               System.out.print("\033[1;94m1) \033[0;94mModificar o Nome da Empresa\033[0m\n" +
-                         "\033[1;94m2) \033[0;94mMudar o CNPJ da Empresa\033[0m\n" +
-                         "\033[1;94m3) \033[0;94mTrocar o e-mail da Empresa\033[0m\n" +
-                         "\033[1;94m4) \033[0;94mModificar o endereço da Empresa\033[0m\n" +
-                         "\033[1;94m5) \033[0;94mRetornar\033[0m\n\033[1;97m>\033[0m ");
+               System.out.print("\033[1;94m1)\033[0m \033[0;94mMostrar Dados da Empresa\033[0m\n" +
+                         "\033[1;94m2) \033[0;94mModificar o Nome da Empresa\033[0m\n" +
+                         "\033[1;94m3) \033[0;94mMudar o CNPJ da Empresa\033[0m\n" +
+                         "\033[1;94m4) \033[0;94mTrocar o e-mail da Empresa\033[0m\n" +
+                         "\033[1;94m5) \033[0;94mModificar o endereço da Empresa\033[0m\n" +
+                         "\033[1;94m6) \033[0;94mRetornar\033[0m\n\033[1;97m>\033[0m ");
 
                opcaoMenu = leitor.nextInt();
                limparBuffer();           
                switch (opcaoMenu) {
                     case 1:
-                         configurarNomeEmpresa();
+                         dadosEmpresa();
                          break;
                     case 2:
-                         configurarCnpjEmpresa();
+                         configurarNomeEmpresa();
                          break;
                     case 3:
-                         configurarEmailEmpresa();
+                         configurarCnpjEmpresa();
                          break;
                     case 4:
-                         configurarEnderecoEmpresa();
+                         configurarEmailEmpresa();
                          break;
                     case 5:
+                         configurarEnderecoEmpresa();
+                         break;
+                    case 6:
                          break;
                     default:
                          System.out.println("Opção inválida! Aperte \033[1;32mENTER\033[0m para tentar novamente.");
                          esperarEnter();
                }
 
-          } while (opcaoMenu != 5);
+          } while (opcaoMenu != 6);
      }
 
-     public static void inicializarEmpresa() throws IOException {
+     /**
+      * Inicializa os dados da empresa no start-up do sistema.
+      */
+     public static void inicializarEmpresa() {
           
           configurarNomeEmpresa();
 
@@ -66,7 +85,10 @@ public class MenuEmpresa {
           limparConsole();
      }
 
-     public static void configurarNomeEmpresa() throws IOException {
+     /**
+      * Realiza a configuração do nome da academia.
+      */
+     public static void configurarNomeEmpresa() {
           while(true) {
                try {
                     cabecalhoSGA();
@@ -84,7 +106,10 @@ public class MenuEmpresa {
           }
      }
 
-     public static void configurarCnpjEmpresa() throws IOException {
+     /**
+      * Realiza a configuração do CNPJ da academia.
+      */
+     public static void configurarCnpjEmpresa() {
           while(true) {
                try {
                     cabecalhoSGA();
@@ -103,7 +128,10 @@ public class MenuEmpresa {
           }
      }
 
-     public static void configurarEmailEmpresa() throws IOException {
+     /**
+      * Realiza a configuração do e-mail da academia.
+      */
+     public static void configurarEmailEmpresa() {
           while(true) {
                try {
                     cabecalhoSGA();
@@ -122,7 +150,10 @@ public class MenuEmpresa {
           }
      }
 
-     public static void configurarEnderecoEmpresa() throws IOException {
+     /**
+      * Realiza a configuração do endereço da academia.
+      */
+     public static void configurarEnderecoEmpresa() {
 
           Endereco enderecoEmpresa = new Endereco();
 
@@ -228,7 +259,10 @@ public class MenuEmpresa {
           limparConsole(); 
      }
 
-     public static void dadosEmpresa() throws IOException {
+     /**
+      * Mostra os dados da empresa na tela.
+      */
+     public static void dadosEmpresa() {
           cabecalhoSGA();
           System.out.println("\033[1;32mInformações da Empresa\033[0m:\n");
           System.out.println(bancoEmpresa.obterEmpresa());

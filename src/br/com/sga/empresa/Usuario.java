@@ -2,6 +2,14 @@ package br.com.sga.empresa;
 
 import java.io.Serializable;
 
+/**
+ * Modela o usuário que administra o sistema.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class Usuario implements Serializable {
      
      private final int id;

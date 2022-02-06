@@ -8,6 +8,14 @@ import br.com.sga.identidade.ValidacaoDadosPessoais;
 
 import java.lang.Cloneable;
 
+/**
+ * Modela uma pessoa, que pode ser um funcionário ou aluno.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public abstract class Pessoa implements Comparable<Pessoa>, Serializable, Cloneable {
      protected String nome;
      protected String telefone;

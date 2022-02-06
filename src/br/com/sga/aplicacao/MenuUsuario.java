@@ -2,11 +2,23 @@ package br.com.sga.aplicacao;
 
 import static br.com.sga.aplicacao.AppSGA.*;
 
-import java.io.IOException;
-
+/**
+ * <p>
+ * Encapsula as operações relacionadas ao menu dos usuários.
+ * </p>
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class MenuUsuario {
      
-     public static void menuUsuario() throws IOException {
+     /**
+      * Mostra o menu para a gerencia de usuários,
+      * para a realização do CRUD.
+      */
+     public static void menuUsuario() {
           if (!usuarioAtual.isAdministrador()) {
                cabecalhoSGA();
                System.out.println("Você não tem permissão para acessar o menu de usuários!\nPressione \033[1;32mENTER\033[0m para continuar.");
@@ -56,7 +68,11 @@ public class MenuUsuario {
           } while (opcaoMenu != 7);
      }
 
-     public static void criarAdministrador() throws IOException {
+     /**
+      * Cria um usuário administrador! Utilizado no
+      * primeiro start-up do sistema.
+      */
+     public static void criarAdministrador() {
           String login;
           String senha;
           while(true) {
@@ -94,7 +110,12 @@ public class MenuUsuario {
           limparConsole(); 
      }
 
-     public static void criarUsuario() throws IOException {
+     /**
+      * Cria um usuário do sistema, pedindo
+      * para informar LOGIN, SENHA e se
+      * terá permissões de administrador.
+      */
+     public static void criarUsuario() {
           String login;
           String senha;
           String permissaoAdministrador;
@@ -104,6 +125,7 @@ public class MenuUsuario {
                System.out.print("Insira o login do usuário. Deve ter no mínimo 5 caracteres:\n> ");
                login = leitor.nextLine();
                if(login.isEmpty() || login.length() < 5) {
+                    cabecalhoSGA();
                     System.out.println("Login inválido! O login do usuário deve ter no mínimo 5 caracteres!" +
                     "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
@@ -119,6 +141,7 @@ public class MenuUsuario {
                System.out.print("Insira a senha. Deve ter no mínimo 5 caracteres:\n> ");
                senha = leitor.nextLine();
                if(senha.isEmpty() || senha.length() < 5) {
+                    cabecalhoSGA();
                     System.out.println("Senha inválida! A senha do usuário deve ter no mínimo 5 caracteres!" +
                     "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                     esperarEnter();
@@ -134,6 +157,7 @@ public class MenuUsuario {
                System.out.print("Esse usuário terá permissões de administrador? (S/N)\n> ");
                permissaoAdministrador = leitor.next().toUpperCase();
                if(permissaoAdministrador.isEmpty() || (!permissaoAdministrador.equals("S") && !permissaoAdministrador.equals("N"))) {
+                    cabecalhoSGA();
                     System.out.println("Escolha inválida!" +
                     "\nPressione \033[1;32mENTER\033[0m para tentar de novo.");
                     limparBuffer();
@@ -153,7 +177,11 @@ public class MenuUsuario {
           limparConsole(); 
      }
 
-     public static void listarUsuario() throws IOException {
+     /**
+      * Todos os usuários do sistema são
+      * listados.
+      */
+     public static void listarUsuario() {
           cabecalhoSGA();
           System.out.println("\033[1;32mLista de Usuários\033[0m:\n");
           bancoUsuarios.listarUsuario();
@@ -162,7 +190,11 @@ public class MenuUsuario {
           limparConsole(); 
      }
      
-     public static void atualizarLoginUsuario() throws IOException {
+     /**
+      * Realiza a atualização do login de um usuário
+      * de ID fornecido pelo usuário atual.
+      */
+     public static void atualizarLoginUsuario() {
 
           int id;
           String login;
@@ -211,7 +243,11 @@ public class MenuUsuario {
           limparConsole(); 
      }
 
-     public static void atualizarSenhaUsuario() throws IOException {
+     /**
+      * Realiza a atualização da senha de um usuário
+      * de ID fornecido pelo usuário atual.
+      */
+     public static void atualizarSenhaUsuario() {
 
           int id;
           String senha;
@@ -260,7 +296,11 @@ public class MenuUsuario {
           limparConsole(); 
      }
 
-     public static void atualizarPermissaoUsuario() throws IOException {
+     /**
+      * Realiza a atualização da permissão de um usuário
+      * de ID fornecido pelo usuário atual.
+      */
+     public static void atualizarPermissaoUsuario() {
           
           int id;
           String permissaoAdministrador;
@@ -310,7 +350,12 @@ public class MenuUsuario {
           limparConsole(); 
      }
 
-     public static void removerUsuario() throws IOException {
+     /**
+      * Realiza a remoção do usuário requisitado,
+      * ou seja, por meio do ID fornecido pelo
+      * usuário atual.
+      */
+     public static void removerUsuario() {
           int id;
           
           while(true) {

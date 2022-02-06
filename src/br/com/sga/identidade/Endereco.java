@@ -2,6 +2,14 @@ package br.com.sga.identidade;
 
 import java.io.Serializable;
 
+/**
+ * Modela o endereço utilizado no sistema.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class Endereco implements Serializable {
      private String logradouro;
      private int numero;

@@ -1,20 +1,27 @@
 package br.com.sga.identidade;
 
+/**
+ * Contém métodos estáticos para validação de
+ * campos, como CNPJ, CPF, CEP, telefone e email,
+ * baseados em REGEX.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public abstract class ValidacaoDadosPessoais {
      // RFC 5322
      private static final String REGEX_EMAIL = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
      private static final String REGEX_TELEFONE = "(\\(?\\d{2}\\)?\\s?)?(\\d{4,5}\\-?\\d{4})";
-     private static final String REGEX_CEP = "\\d{5}\\-\\d{3}";
-
-     public static void main(String args[]) {
-          System.out.println(validarEmail("d"));
-     }
+     private static final String REGEX_CEP = "\\d{5}\\-?\\d{3}";
 
      /**
-      * Valida um número de registro nacional, tais como CPF e CNPJ
+      * Valida um número de registro nacional, CPF ou CNPJ.
       * 
-      * @param registro
-      * @return
+      * @param registro Um número de CPNJ ou CPF(apenas números).
+      * @return "true" se o registro é valido, e "false" caso
+      * contrário.
       */
      public static boolean validarRegistroNacional(String registro) {
           if (registro.length() == 11) {
@@ -110,10 +117,11 @@ public abstract class ValidacaoDadosPessoais {
      }
 
      /**
-      * Valida um endereço de e-mail
+      * Valida um endereço de e-mail.
       *
-      * @param email
-      * @return
+      * @param email O endereço de e-mail.
+      * @return "true" se o e-mail é valido, e "false" caso
+      * contrário.
       */
      public static boolean validarEmail(String email) throws IllegalArgumentException {
           if (email == null || email.isEmpty()) {
@@ -123,25 +131,31 @@ public abstract class ValidacaoDadosPessoais {
      }
 
      /**
-      * Valida um número de telefone
+      * Valida um número de telefone.
       *
-      * @param telefone
-      * @return
+      * @param telefone O número de telefone(vários formatos
+      * suportados).
+      * @return "true" se o telefone é valido, e "false" caso
+      * contrário.
       */
      public static boolean validarTelefone(String telefone) {
           return telefone.matches(REGEX_TELEFONE);
      }
 
      /**
-      * Valida um cep
+      * Valida um CEP.
       *
-      * @param cep
-      * @return
+      * @param cep O número de CEP(pode ter ou não o traço).
+      * @return "true" se o CEP é valido, e "false" caso
+      * contrário.
       */
      public static boolean validarCep(String cep) {
           return cep.matches(REGEX_CEP);
      }
 
+     /**
+      * Valida um identificador regular, como um nome.
+      */
      public void validarIdentificador(String identificador) {
           if (identificador == null || identificador.isEmpty()) {
                throw new IllegalArgumentException("Informe um identificador válido!");

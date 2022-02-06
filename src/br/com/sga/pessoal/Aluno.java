@@ -7,8 +7,23 @@ import br.com.sga.identidade.Endereco;
 import br.com.sga.financeiro.Pagamento;
 import br.com.sga.datehelper.DateHelper;
 
+/**
+ * Modela o aluno que será administrado pelo sistema.
+ * 
+ * @author Daniel Vitor (Aluno)
+ * @author Pedro Botelho (Aluno)
+ * @author Atílio G. Luiz (Orientador)
+ * @since 05/02/2022
+ */
 public class Aluno extends Pessoa {
+     /**
+      * Número de matrícula do aluno.
+      */
      private int matricula;
+
+     /**
+      * Lista de pagamentos efetuados pelo aluno.
+      */
      private List<Pagamento> pagamentos;
 
      public Aluno() {
@@ -21,10 +36,17 @@ public class Aluno extends Pessoa {
           this.matricula = matricula;
      }
 
+     /**
+      * Adiciona um pagamento à lista de pagamentos
+      * do aluno.
+      */
      public void adicionarPagamento(Pagamento pagamento) {
           this.pagamentos.add(pagamento);
      }
 
+     /**
+      * Obtém a lista de pagamentos.
+      */
      public List<Pagamento> getPagamentos() {
           return this.pagamentos;
      }
